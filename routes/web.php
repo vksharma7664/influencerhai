@@ -141,6 +141,9 @@ Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function
 });
 
 
+// brand login page
+Route::get('/brand/login', [FrontController::class, 'InfluencerList'])->name('influencers.list');
+
 //brand login routes
 Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function(){
 
