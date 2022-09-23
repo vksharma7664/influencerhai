@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\PermissionsController;
 use App\Http\Controllers\admin\CareerController;
 use App\Http\Controllers\admin\MetaController;
+use App\Http\Controllers\Brand\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -142,7 +143,8 @@ Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function
 
 
 // brand login page
-Route::get('/brand/login', [FrontController::class, 'InfluencerList'])->name('influencers.list');
+Route::get('/brand/login', [LoginController::class, 'loginShow'])->name('brand.login');
+Route::get('/brand/register', [LoginController::class, 'registerShow'])->name('brand.register');
 
 //brand login routes
 Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function(){
