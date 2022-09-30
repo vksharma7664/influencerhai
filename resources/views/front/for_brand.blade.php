@@ -188,7 +188,15 @@
                     </div>
                 </div>
                </div>
-               <div class="row">       
+               <div class="row">
+               <div class="col-lg-2 col-md-4 col-sm-6 col-6 social-content-brand">
+                    <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/yt.png' }}" class="img-fluid soc-brand" alt="">
+                    <h6>Youtube</h6>
+                </div> 
+                <div class="col-lg-2 col-md-4 col-sm-6 col-6 social-content-brand">
+                    <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/inst.png' }}" class="img-fluid soc-brand" alt="">
+                    <h6>Instagram</h6>
+                </div>      
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6 social-content-brand">
                     <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/Facebook.png' }}" class="img-fluid soc-brand" alt="">
                     <h6>Facebook</h6>
@@ -205,14 +213,8 @@
                     <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/tele.png' }}" class="img-fluid soc-brand" alt="">
                     <h6>Telegram</h6>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-6 social-content-brand">
-                    <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/inst.png' }}" class="img-fluid soc-brand" alt="">
-                    <h6>Instagram</h6>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-6 social-content-brand">
-                    <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/social-icon-image/tik.png' }}" class="img-fluid soc-brand" alt="">
-                    <h6>Tiktok</h6>
-                </div>
+                
+                
               </div>
             </div>        
         </section>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; Stisla</title>
+  <title>Brand Login &mdash; {{ env('APP_NAME') }}</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/bootstrap/css/bootstrap.min.css' }}">
@@ -19,30 +19,42 @@
 <body>
   <div id="app">
     <section class="section">
-      <div class="container mt-5">
+      <div class="container mt-1">
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
               <!-- <img src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/img/stisla-fill.svg' }}" alt="logo" width="100" class="shadow-light rounded-circle"> -->
-              <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/logo2.jpeg' }}" class="img-fluid shadow-light " alt="Influencerhai.com's website logo.">
+              <a href="{{ route('home')}}">
+              <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/logo2.jpeg' }}" alt="logo" width="200"  class="shadow-light img-fluid" alt="Influencerhai.com's website logo.">
+              </a>
+              
             </div>
 
             <div class="card card-primary">
               <div class="card-header"><h4>Login</h4></div>
-
+                @if ($errors->has('email'))
+                    <span class="error text-center" style="color: red;">{{ $errors->first('email') }}</span>
+                @endif
+               @if ($errors->has('password'))
+                  <span class="error text-center" style="color: red;">{{ $errors->first('password') }}</span>
+                @endif
               <div class="card-body">
-                <form method="POST" action="#" class="needs-validation" novalidate="">
+                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+                  @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required >
                     <div class="invalid-feedback">
                       Please fill in your email
                     </div>
+
                   </div>
 
                   <div class="form-group">
                     <div class="d-block">
                     	<label for="password" class="control-label">Password</label>
+                     
                       <div class="float-right">
                         <a href="auth-forgot-password.html" class="text-small">
                           Forgot Password?
@@ -68,7 +80,7 @@
                     </button>
                   </div>
                 </form>
-                <div class="text-center mt-4 mb-3">
+                <!-- <div class="text-center mt-4 mb-3">
                   <div class="text-job text-muted">Login With Social</div>
                 </div>
                 <div class="row sm-gutters">
@@ -82,15 +94,16 @@
                       <span class="fab fa-twitter"></span> Twitter
                     </a>                                
                   </div>
-                </div>
+                </div> -->
 
               </div>
             </div>
-            <div class="mt-5 text-muted text-center">
-              Don't have an account? <a href="auth-register.html">Create One</a>
+            <div class="mt-2 text-muted text-center">
+              Don't have an account? <a href="{{ route('brand.register')}}">Register</a>
             </div>
             <div class="simple-footer">
-              Copyright &copy; Stisla 2018
+              <!-- Copyright &copy; Stisla 2018 -->
+              COPYRIGHT &copy; 2022 | ALL RIGHTS RESERVED BY TECHISTIC ONLINE PLATFORM PVT LTD 
             </div>
           </div>
         </div>
@@ -105,4 +118,12 @@
   <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/bootstrap/js/bootstrap.min.js' }}"></script>
   <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/nicescroll/jquery.nicescroll.min.js' }}"></script>
   <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/moment.min.js' }}"></script>
-  <scrip
+  <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/js/stisla.js' }}"></script>
+  
+  <!-- JS Libraies -->
+
+  <!-- Template JS File -->
+  <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/js/scripts.js' }}"></script>
+  <script src="{{ env('AWS_BASEURL_IMAGE').'brand-assets/js/custom.js' }}"></script>
+</body>
+</html>

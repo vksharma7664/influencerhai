@@ -30,7 +30,7 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-responsive" style="overflow-y: auto !important;"> 
-                                    <table id="example-table" class="table table-striped table-bordered table-hover table-green">
+                                    <table id="example-table2" class="table table-striped table-bordered table-hover table-green">
                                         <thead>
                                             <tr>
                                                 <th>SR. No.</th>

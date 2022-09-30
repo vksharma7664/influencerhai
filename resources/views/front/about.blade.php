@@ -193,7 +193,7 @@
     </section>
     <!--our-clients area end here-->
 
-     <!--h2-logo slider start here-->
+    <!--h2-logo slider start here-->
     @include('front.include.brand-logos')
     <!--h2-logo slider end here-->
 @endsection

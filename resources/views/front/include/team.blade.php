@@ -64,7 +64,7 @@
                         <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
                             <h3 class="pb-10"><a href="">Manish Mannu</a></h3>
                         </div>
-                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Business Development Executive</p>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencers Marketing Executive</p>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                         <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
                             <h3 class="pb-10"><a href="">Siddhi</a></h3>
                         </div>
-                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencer Marketing Executive</p>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencers Marketing Executive</p>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,70 @@
                         <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
                             <h3 class="pb-10"><a href="">Yogesh Sharma</a></h3>
                         </div>
-                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencer Marketing Executive</p>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencers Marketing Executive</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                <div class="h4-single-team">
+                    <div class="h4-team-img relative">
+                        <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/executive/shruti.jpg' }}" alt="">
+                        <!-- <div class="h4-team-social">
+                            <ul class="d-flex">
+                                <li><a href=""><i class="icofont-facebook"></i></a></li>
+                                <li><a href=""><i class="icofont-behance"></i></a></li>
+                                <li><a href=""><i class="icofont-twitter"></i></a></li>
+                                <li><a href=""><i class="icofont-dribbble"></i></a></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <div class="h4-team-cont text-center get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                        <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                            <h3 class="pb-10"><a href="">Shruti Shrivastava</a></h3>
+                        </div>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Human Resources</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-sm-50 get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                <div class="h4-single-team">
+                    <div class="h4-team-img relative">
+                        <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/executive/default.png' }}" alt="">
+                        <!-- <div class="h4-team-social">
+                            <ul class="d-flex">
+                                <li><a href=""><i class="icofont-facebook"></i></a></li>
+                                <li><a href=""><i class="icofont-behance"></i></a></li>
+                                <li><a href=""><i class="icofont-twitter"></i></a></li>
+                                <li><a href=""><i class="icofont-dribbble"></i></a></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <div class="h4-team-cont text-center get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                        <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                            <h3 class="pb-10"><a href="">Chitra Bhatia</a></h3>
+                        </div>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencers Marketing Executive</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                <div class="h4-single-team">
+                    <div class="h4-team-img relative">
+                        <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/executive/aditi.jpg' }}" alt="">
+                        <!-- <div class="h4-team-social">
+                            <ul class="d-flex">
+                                <li><a href=""><i class="icofont-facebook"></i></a></li>
+                                <li><a href=""><i class="icofont-behance"></i></a></li>
+                                <li><a href=""><i class="icofont-twitter"></i></a></li>
+                                <li><a href=""><i class="icofont-dribbble"></i></a></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <div class="h4-team-cont text-center get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                        <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
+                            <h3 class="pb-10"><a href="">Aditi Bisht</a></h3>
+                        </div>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Bussiness Development Executive</p>
                     </div>
                 </div>
             </div>
@@ -149,7 +212,7 @@
                         <div class="card-title animate melon-hover" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
                             <h3 class="pb-10"><a href="">Shubham Rawat</a></h3>
                         </div>
-                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Business Development Executive</p>
+                        <p class="animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">Influencers Marketing Executive</p>
                     </div>
                 </div>
             </div>

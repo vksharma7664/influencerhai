@@ -105,46 +105,51 @@
     </head>
     <body class="placeholder" data-scrollbar="#0a35dc">
         @section('header')
-             <!--header area start here-->
-                <header class="header-area sticky-blue stic">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="d-flex justify-content-between align-items-center header-menu header-transparent">
-                                <div id="rect" class="logo">
-                                <a href="{{ url('/')}}" class="logo-demo">
-                                    <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/logo2.jpeg' }}" class="img-fluid" alt="Influencerhai.com's website logo.">
-                                </a>
-                                </div>
-                                <div class="pupko-menu d-flex align-items-center justify-content-between">
-                                    <nav class="main-navbar pupko-nav-white">
-                                        <ul>
-                                            <li>
-                                                <a href="{{ route('influencers.category')}}">Influencers</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('about')}}">About Us</a>
-                                            </li>
-                                           
-                                            
-                                           
-                                            <li><a href="{{ route('blog')}}">Blog</a>
-                                            </li>
-                                            <li><a href="{{ route('careers')}}">Careers</a></li>
-                                        </ul>
-                                    </nav>
-                                    <a href="{{ route('contact')}}" class="btn btn-sm btn-light-red br-6 btn-shatter-white btn-animate">Get in Touch</a>
-                                </div>
-                                <!-- responsive bar -->
-                                <div class="animate-bar white-bar">
-                                    <div class="line1"></div>
-                                    <div class="line2"></div>
-                                    <div class="line3"></div>
-                                </div>
+            <!--header area start here-->
+            <header class="header-area sticky-blue stic">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="d-flex justify-content-between align-items-center header-menu header-transparent">
+                            <div id="rect" class="logo">
+                            <a href="{{ url('/')}}" class="logo-demo">
+                                <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/logo2.jpeg' }}" class="img-fluid" alt="Influencerhai.com's website logo.">
+                            </a>
+                            </div>
+                            <div class="pupko-menu d-flex align-items-center justify-content-between">
+                                <nav class="main-navbar pupko-nav-white">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('influencers.category')}}">Influencers</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('about')}}">About Us</a>
+                                        </li>
+                                       
+                                        
+                                       
+                                        <li><a href="{{ route('blog')}}">Blog</a>
+                                           <!--  <ul>
+                                                <li>one</li>
+                                                <li>one</li>
+                                                <li>one</li>
+                                            </ul> -->
+                                        </li>
+                                        <li><a href="{{ route('careers')}}">Careers</a></li>
+                                    </ul>
+                                </nav>
+                                <a href="{{ route('contact')}}" class="btn btn-sm btn-light-red br-6 btn-shatter-white btn-animate">Get in Touch</a>
+                            </div>
+                            <!-- responsive bar -->
+                            <div class="animate-bar white-bar">
+                                <div class="line1"></div>
+                                <div class="line2"></div>
+                                <div class="line3"></div>
                             </div>
                         </div>
                     </div>
-                </header>
-    <!--header area end here-->
+                </div>
+            </header>
+            <!--header area end here-->
         @show
  
         <!-- <div class="container"> -->
@@ -314,125 +319,125 @@
 
 
             <script>
-           $(document).ready(function() {
-          //toggle the component with class accordion_body
-          $(".accordion_head").click(function() {
-            if ($('.accordion_body').is(':visible')) {
-              $(".accordion_body").slideUp(300);
-              $(".plusminus").text('+');
-            }
-            if ($(this).next(".accordion_body").is(':visible')) {
-              $(this).next(".accordion_body").slideUp(300);
-              $(this).children(".plusminus").text('+');
-            } else {
-              $(this).next(".accordion_body").slideDown(300);
-              $(this).children(".plusminus").text('-');
-            }
-          });
-        });
+               $(document).ready(function() {
+                  //toggle the component with class accordion_body
+                  $(".accordion_head").click(function() {
+                    if ($('.accordion_body').is(':visible')) {
+                      $(".accordion_body").slideUp(300);
+                      $(".plusminus").text('+');
+                    }
+                    if ($(this).next(".accordion_body").is(':visible')) {
+                      $(this).next(".accordion_body").slideUp(300);
+                      $(this).children(".plusminus").text('+');
+                    } else {
+                      $(this).next(".accordion_body").slideDown(300);
+                      $(this).children(".plusminus").text('-');
+                    }
+                  });
+                });
             </script>
 
 
-        <script>
-            $('#owl-carousel002').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:true,
-            autoplay:true,
-            autoplayTimeout:1000,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:6
+            <script>
+                $('#owl-carousel002').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                autoplay:true,
+                autoplayTimeout:1000,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:6
+                    }
                 }
-            }
-        })
-        </script>
-        
-          <!-- toastr js  -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                toastr.options.timeOut = 10000;
-                @if (Session::has('error'))
-                    toastr.error('{{ Session::get('error') }}');
-                @elseif(Session::has('success'))
-                    toastr.success('{{ Session::get('success') }}');
-                @endif
-            });
-
-        </script>
-
-        <script type="text/javascript">
-            var h1 = document.getElementsByTagName("h1");
-
-            for (i = 0; i < h1.length; i++) {
-                h1[i].className += ' h1';
-            }
-
-            var h2 = document.getElementsByTagName("h2");
-
-            for (i = 0; i < h2.length; i++) {
-                h2[i].className += ' h2';
-            }
-
-
-            var h3 = document.getElementsByTagName("h3");
-
-            for (i = 0; i < h3.length; i++) {
-                h3[i].className += ' h3';
-            }
-
-
-
-        </script>
-
-        <!-- script for load more -->
-        <script>
-            var ENDPOINT = "{{ URL::current() }}";
-            var page = 1;
-            $(document).ready(function() {
-                $(".load-more-button").click(function(){
-                    // alert(ENDPOINT);
-                   
-                    page = page + 1;
-
-                    //get more data
-
-                    $.ajax({
-                        url: ENDPOINT + "?page=" + page,
-                        datatype: "html",
-                        type: "get",
-                        beforeSend: function () {
-                            $('.auto-load').show();
-                            $('.load-more-button').hide();
-                        }
-                    })
-                    .done(function (response) {
-                        console.log(response);
-                        if (response.length == 0) {
-                            $('.auto-load').html("We don't have more data to display :(");
-                            return;
-                        }
-                        $('.auto-load').hide();
-                        $('.load-more-button').show();
-                        $("#data-wrapper").append(response);
-                    })
-                    .fail(function (jqXHR, ajaxOptions, thrownError) {
-                        console.log('Server error occured');
-                    });
+            })
+            </script>
             
+              <!-- toastr js  -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
+            <script>
+                $(document).ready(function() {
+                    toastr.options.timeOut = 10000;
+                    @if (Session::has('error'))
+                        toastr.error('{{ Session::get('error') }}');
+                    @elseif(Session::has('success'))
+                        toastr.success('{{ Session::get('success') }}');
+                    @endif
                 });
-            });
 
-        </script>
+            </script>
+
+            <script type="text/javascript">
+                var h1 = document.getElementsByTagName("h1");
+
+                for (i = 0; i < h1.length; i++) {
+                    h1[i].className += ' h1';
+                }
+
+                var h2 = document.getElementsByTagName("h2");
+
+                for (i = 0; i < h2.length; i++) {
+                    h2[i].className += ' h2';
+                }
+
+
+                var h3 = document.getElementsByTagName("h3");
+
+                for (i = 0; i < h3.length; i++) {
+                    h3[i].className += ' h3';
+                }
+
+
+
+            </script>
+
+            <!-- script for load more -->
+            <script>
+                var ENDPOINT = "{{ URL::current() }}";
+                var page = 1;
+                $(document).ready(function() {
+                    $(".load-more-button").click(function(){
+                        // alert(ENDPOINT);
+                       
+                        page = page + 1;
+
+                        //get more data
+
+                        $.ajax({
+                            url: ENDPOINT + "?page=" + page,
+                            datatype: "html",
+                            type: "get",
+                            beforeSend: function () {
+                                $('.auto-load').show();
+                                $('.load-more-button').hide();
+                            }
+                        })
+                        .done(function (response) {
+                            console.log(response);
+                            if (response.length == 0) {
+                                $('.auto-load').html("We don't have more data to display :(");
+                                return;
+                            }
+                            $('.auto-load').hide();
+                            $('.load-more-button').show();
+                            $("#data-wrapper").append(response);
+                        })
+                        .fail(function (jqXHR, ajaxOptions, thrownError) {
+                            console.log('Server error occured');
+                        });
+                
+
+                    });
+                });
+
+            </script>
         
         @show
 

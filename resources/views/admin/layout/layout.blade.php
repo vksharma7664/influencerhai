@@ -16,7 +16,9 @@
     <link href="{{ asset('admin-asset/icons/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- PAGE LEVEL PLUGIN STYLES -->
-    <link href="{{ asset('admin-asset/css/plugins/datatables/datatables.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('admin-asset/css/plugins/datatables/datatables.css') }}" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
 
     <!-- THEME STYLES - Include these on every page. -->
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
@@ -342,7 +344,8 @@
     <!-- /#wrapper -->
 
     <!-- GLOBAL SCRIPTS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="{{ asset('admin-asset/js/plugins/bootstrap/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin-asset/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('admin-asset/js/plugins/popupoverlay/jquery.popupoverlay.js') }}"></script>
@@ -378,12 +381,34 @@
     <script src="{{ asset('admin-asset/js/plugins/hisrc/hisrc.js') }}"></script>
 
     <!-- PAGE LEVEL PLUGIN SCRIPTS -->
-    <script src="{{ asset('admin-asset/js/plugins/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('admin-asset/js/plugins/datatables/datatables-bs3.js') }}"></script>
+    <!-- <script src="{{ asset('admin-asset/js/plugins/datatables/jquery.dataTables.js') }}"></script> -->
+    <!-- <script src="{{ asset('admin-asset/js/plugins/datatables/datatables-bs3.js') }}"></script> -->
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 
     <!-- THEME SCRIPTS -->
     <script src="{{ asset('admin-asset/js/flex.js') }}"></script>
     <script src="{{ asset('admin-asset/js/demo/advanced-tables-demo.js') }}"></script>
+    <script>
+        //DataTables Initialization
+        $(document).ready(function() {
+            $('#example-table2').dataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                     // 'copyHtml5',
+                    'excelHtml5',
+                    // 'csvHtml5',
+                    // 'pdfHtml5'
+                ]
+            });
+        });
+
+    </script>
+
     @section('script')
     @show
 </body>

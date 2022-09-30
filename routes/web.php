@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\PermissionsController;
 use App\Http\Controllers\admin\CareerController;
 use App\Http\Controllers\admin\MetaController;
 use App\Http\Controllers\Brand\LoginController;
+use App\Http\Controllers\Brand\CampaignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::get('/influencers/category/', [FrontController::class, 'InfluencerCategor
 Route::get('/influencers/category/{category_slug}', [FrontController::class, 'InfluencerList'])->name('influencers.list');
 
 Auth::routes();
+
 Route::get('/admin', function(){
     return redirect()->route('login');      
 })->name('admin.home');
@@ -145,11 +147,18 @@ Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function
 // brand login page
 Route::get('/brand/login', [LoginController::class, 'loginShow'])->name('brand.login');
 Route::get('/brand/register', [LoginController::class, 'registerShow'])->name('brand.register');
+Route::post('/brand/register', [LoginController::class, 'registerSubmit'])->name('brand.register.submit');
+Route::get('/brand/register/successful', [LoginController::class, 'registerSuccess'])->name('brand.register.success');
 
 //brand login routes
-Route::group(['middleware'=>['auth', 'permission'],'prefix' => 'admin'],function(){
+Route::group(['middleware'=>['auth'],'prefix' => 'brand'],function(){
 
-    Route::get('/brand/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard',[LoginController::class, 'dashboard'])->name('brand.dashboard');
+    Route::get('/campaign/create',[CampaignController::class, 'create'])->name('brand.campaign.create');
+    Route::post('/campaign/create2',[CampaignController::class, 'create2'])->name('brand.campaign.create2');
+    Route::post('/campaign/create3',[CampaignController::class, 'create3'])->name('brand.campaign.create3');
+    Route::post('/campaign/finalcreate',[CampaignController::class, 'finalCreate'])->name('brand.campaign.finalcreate');
+    Route::get('/campaign/my-campaign',[CampaignController::class, 'list'])->name('brand.campaign.list');
 
 });
 
