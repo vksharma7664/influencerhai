@@ -24,7 +24,7 @@
     <!-- blog mesonry start here -->
     <div class="blog-mesonry-area section-bg-padding">
         <div class="container">
-            <div class="row mesonry">
+            <div class="row mesonry" id="data-wrapper">
                 @foreach($blogs as $blog)
                 <div class="col-lg-4 col-sm-6 mesonry-item">
                     <a href="{{ route('blog.details', $blog->slug)}}">
@@ -43,11 +43,13 @@
                     </a>
                 </div>
                 @endforeach
+
             </div>
             <!-- add load more button here -->
-            @include('front.include.load_more')
+            
         </div>
     </div>
+    @include('front.include.load_more')
     <!-- blog mesonry end here -->
     <!-- {{$blogs->links()}} -->
 

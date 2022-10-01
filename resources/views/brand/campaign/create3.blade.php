@@ -72,7 +72,7 @@
                       </div>
                     </div>
 
-                    <form class="wizard-content mt-2" method="POST" action="{{ route('brand.campaign.finalcreate')}}" id="form">
+                    <form class="wizard-content mt-2" method="POST" @if(isset($campaign) && !empty($campaign))  action="{{ route('brand.campaign.finalcreate',$campaign->unique_id) }}" @else action="{{ route('brand.campaign.finalcreate') }}" @endif id="form">
                       @csrf
                       <div class="wizard-pane">
                         <div class="form-group row">
@@ -82,10 +82,18 @@
                               <label class="selectgroup-item">
                                 <div class="form-group">
                                   <!-- <label>jQuery Selectric Multiple</label> -->
+                                  @php
+                                    $category_arr = [];
+                                    if(isset($campaign) && !empty($campaign)){
+                                      if($campaign->categories()->count()){
+                                        $category_arr = array_column($campaign->categories->toArray(), 'category');
+                                      }
+                                    }
+                                  @endphp
                                   <select class="form-control select2"
-                                  multiple="" name="influencer_categories[]">
+                                  multiple="" name="influencer_categories[]" required>
                                     @foreach($categories as $cat)
-                                    <option value="{{$cat->name}}">{{$cat->name}}</option>
+                                    <option value="{{$cat->name}}" @if(in_array($cat->name, $category_arr)) selected="selected" @endif >{{$cat->name}}</option>
                                     @endforeach
                                   </select>
                                 </div>
@@ -100,10 +108,18 @@
                               <label class="selectgroup-item">
                                 <div class="form-group">
                                     <!-- <label>jQuery Selectric Multiple</label> -->
-                                    <select class="form-control select2" multiple="" name="influencer_locations[]">
-                                      <option value="noida">Noida</option>
-                                      <option value="delhi">Delhi</option>
-                                      
+                                    @php
+                                      $location_arr = [];
+                                      if(isset($campaign) && !empty($campaign)){
+                                        if($campaign->locations()->count()){
+                                          $location_arr = array_column($campaign->locations->toArray(), 'location');  
+                                        }
+                                      }
+                                      $locations = ['noida','delhi','mumbai'];
+                                    @endphp
+                                    <select class="form-control select2" multiple="" name="influencer_locations[]" required>
+                                      @foreach($locations as $one)
+                                      <option value="{{$one}}" @if(in_array($one, $location_arr)) selected="selected" @endif >{{$one}}</option> @endforeach                                     
                                     </select>
                                 </div>
                               </label>
@@ -111,19 +127,20 @@
                           </div>
                         </div>
                         <div class="form-group row">
+
                           <label class="col-md-4 text-md-right text-left mt-2">Influencer Gender*</label>
                           <div class="col-lg-6 col-md-8">
                             <div class="selectgroup w-100">
                               <label class="selectgroup-item">
-                                <input type="radio" name="influencer_gender" value="female" class="selectgroup-input" >
+                                <input type="radio" name="influencer_gender" value="female" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->influencer_gender == 'female' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Female</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="radio" name="influencer_gender" value="male" class="selectgroup-input">
+                                <input type="radio" name="influencer_gender" value="male" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->influencer_gender == 'male' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Male</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="radio" name="influencer_gender" value="any" class="selectgroup-input" checked="checked">
+                                <input type="radio" name="influencer_gender" value="any" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->influencer_gender == 'any' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Any</span>
                               </label>
                             </div>
@@ -131,18 +148,26 @@
                         </div>
                         <div class="form-group row">
                           <label class="col-md-4 text-md-right text-left mt-2">Type of influencers*</label>
+                          @php
+                            $types_arr = [];
+                            if(isset($campaign) && !empty($campaign)){
+                              if($campaign->types()->count()){
+                                $types_arr = array_column($campaign->types->toArray(), 'type');  
+                              }
+                            }
+                          @endphp
                           <div class="col-lg-6 col-md-8">
                             <div class="selectgroup w-100">
                               <label class="selectgroup-item">
-                                <input type="checkbox" name="influencer_type[]" value="nano" class="selectgroup-input" checked="checked">
+                                <input type="checkbox" name="influencer_type[]" value="nano" class="selectgroup-input"  @if(isset($campaign) && !empty($campaign)) {{ in_array('nano', $types_arr) ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Nano (2K - 10K)</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="checkbox" name="influencer_type[]" value="micro" class="selectgroup-input">
+                                <input type="checkbox" name="influencer_type[]" value="micro" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ in_array('micro', $types_arr) ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Micro (10K - 50K)</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="checkbox" name="influencer_type[]" value="macro" class="selectgroup-input">
+                                <input type="checkbox" name="influencer_type[]" value="macro" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ in_array('macro', $types_arr) ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Macro (50K - 500K)</span>
                               </label>
                               </div>
@@ -151,23 +176,39 @@
                           <div class="col-lg-6 col-md-8">
                             <div class="selectgroup w-100">
                               <label class="selectgroup-item">
-                                <input type="checkbox" name="influencer_type[]" value="mega" class="selectgroup-input">
+                                <input type="checkbox" name="influencer_type[]" value="mega" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ in_array('mega', $types_arr) ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Mega (500K - 1M)</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="checkbox" name="influencer_type[]" value="celeb" class="selectgroup-input">
+                                <input type="checkbox" name="influencer_type[]" value="celeb" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ in_array('celeb', $types_arr) ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Celeb (1M+)</span>
                               </label>
                             </div>
                           </div>
                         </div>
                         <div class="form-group row align-items-center" id="link-html">
-                          <label class="col-md-4 text-md-right text-left">Reference links</label>
-                          <div class="col-lg-6 col-md-8">
-                            <input type="text" name="reference_links[]" value="" class="form-control">
-                            <input type="hidden" name="status" id="form-status" value="">
-                          </div>
-                          
+                          <input type="hidden" name="status" id="form-status" value="">
+                          @if(isset($campaign) && !empty($campaign))
+                            @if($campaign->referenceLinks()->count() > 0)
+                              @foreach($campaign->referenceLinks as $key => $arr)
+                              <label class="col-md-4 text-md-right text-left">@if($key == 0) Reference links @endif</label>
+                              <div class="col-lg-6 col-md-8">
+                                <input type="text" name="reference_links[]" value="{{$arr->link}}" class="form-control">
+                              </div>
+                              @endforeach
+                            @else
+                              <label class="col-md-4 text-md-right text-left">Reference links</label>
+                              <div class="col-lg-6 col-md-8">
+                                <input type="text" name="reference_links[]" value="" class="form-control">
+                              </div>
+
+                            @endif
+                          @else
+                              <label class="col-md-4 text-md-right text-left">Reference links</label>
+                              <div class="col-lg-6 col-md-8">
+                                <input type="text" name="reference_links[]" value="" class="form-control">
+                              </div>
+                          @endif
                         </div>
                         <div class="form-group row align-items-center">
                           <label class="col-md-4 text-md-right text-left"><button onclick="addLink()" type="button" class="btn btn-xs">Add link</button></label>

@@ -11,8 +11,9 @@ class Campaign extends Model
     use HasFactory;
 
     protected $fillable = [
-        "campaign_type",
-        "user_id",
+          "campaign_type",
+          "user_id",
+          //"unique_id",
           "payment_type",
           "title",
           "hastags",
@@ -40,15 +41,23 @@ class Campaign extends Model
     protected function deadline(): Attribute
     {
         return Attribute::make(
-            // get: fn ($value) => ucfirst($value),
+            get: fn ($value) => date('j M Y', strtotime($value)),
             set: fn ($value) => date('Y-m-d', strtotime($value)),
+        );
+    }
+
+    protected function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucwords($value),
+            // set: fn ($value) => date('Y-m-d', strtotime($value)),
         );
     }
 
     protected function liveDate(): Attribute
     {
         return Attribute::make(
-            // get: fn ($value) => ucfirst($value),
+            get: fn ($value) => date('j M Y', strtotime($value)),
             set: fn ($value) => date('Y-m-d', strtotime($value)),
         );
     }

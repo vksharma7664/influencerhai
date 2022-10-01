@@ -71,7 +71,7 @@
                       </div>
                     </div>
 
-                    <form class="wizard-content mt-2" method="POST" action="{{ route('brand.campaign.create3')}}">
+                    <form class="wizard-content mt-2" method="POST" @if(isset($campaign) && !empty($campaign))  action="{{ route('brand.campaign.create3',$campaign->unique_id) }}" @else action="{{ route('brand.campaign.create3') }}" @endif>
                       @csrf
                       <div class="wizard-pane">
                         
@@ -80,11 +80,11 @@
                           <div class="col-lg-6 col-md-8">
                             <div class="selectgroup w-100">
                               <label class="selectgroup-item">
-                                <input type="radio" name="platform" value="instagram" class="selectgroup-input" checked="checked" onchange="changePlatform('instagram')">
+                                <input type="radio" name="platform" value="instagram" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->platform == 'instagram' ? 'checked="checked"' : ''}} @endif  onchange="changePlatform('instagram')"  required>
                                 <span class="selectgroup-button">Instagram</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="radio" name="platform" value="youtube" class="selectgroup-input" onchange="changePlatform('youtube')">
+                                <input type="radio" name="platform" value="youtube" class="selectgroup-input" onchange="changePlatform('youtube')" @if(isset($campaign) && !empty($campaign)) {{ $campaign->platform == 'youtube' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Youtube</span>
                               </label>
                               
@@ -101,21 +101,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="insta_reels_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('reels') " id="reels">
+                              <input type="checkbox" name="insta_reels_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('reels') " id="reels" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_reels_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Reels</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="reels-num">
+                            <div class="selectgroup w-50" id="reels-num" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_reels_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif >
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'reels')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="reels_count" id="reels-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="reels-counter-show">1</span>
+                                <input type="text" name="reels_count" id="reels-counter"  class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_reels_checkbox == 'on' ? 'value='.$campaign->reels_count : 'value=1'}} @else value="1" @endif >
+                                <span class="selectgroup-button" id="reels-counter-show"> @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_reels_checkbox == 'on' ? $campaign->reels_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -130,21 +130,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="insta_story_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('story') " id="story">
+                              <input type="checkbox" name="insta_story_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('story') " id="story" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_story_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Story</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="story-num">
+                            <div class="selectgroup w-50" id="story-num" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_story_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif >
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'story')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="story_count" id="story-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="story-counter-show">1</span>
+                                <input type="text" name="story_count" id="story-counter" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_story_checkbox == 'on' ? 'value='.$campaign->story_count : 'value=1'}} @else value="1" @endif >
+                                <span class="selectgroup-button" id="story-counter-show"> @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_story_checkbox == 'on' ? $campaign->story_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -159,7 +159,7 @@
                           <div class="col-lg-6 col-md-8">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="insta_bio_checkbox" class="custom-switch-input" >
+                              <input type="checkbox" name="insta_bio_checkbox" class="custom-switch-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_bio_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Link in Bio</span>
                             </label>
@@ -171,21 +171,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="insta_video_self_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('insta-video-self') " id="insta-video-self">
+                              <input type="checkbox" name="insta_video_self_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('insta-video-self') " id="insta-video-self"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_self_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Video (Self Shot)</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="insta-video-self-num">
+                            <div class="selectgroup w-50" id="insta-video-self-num" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_self_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'insta-video-self')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="insta_video_self_count" id="insta-video-self-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="insta-video-self-counter-show">1</span>
+                                <input type="text" name="insta_video_self_count" id="insta-video-self-counter" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_self_checkbox == 'on' ? 'value='.$campaign->story_count : 'value=1'}} @else value="1" @endif>
+                                <span class="selectgroup-button" id="insta-video-self-counter-show">@if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_self_checkbox == 'on' ? $campaign->story_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -200,21 +200,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="insta_video_brand_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('insta-video-brand') " id="insta-video-brand">
+                              <input type="checkbox" name="insta_video_brand_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('insta-video-brand') " id="insta-video-brand"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_brand_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Video (Brand Produced)</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="insta-video-brand-num">
+                            <div class="selectgroup w-50" id="insta-video-brand-num"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_brand_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'insta-video-brand')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="insta_video_brand_count" id="insta-video-brand-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="insta-video-brand-counter-show">1</span>
+                                <input type="text" name="insta_video_brand_count" id="insta-video-brand-counter"  class="selectgroup-input"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_brand_checkbox == 'on' ? 'value='.$campaign->insta_video_brand_count : 'value=1'}} @else value="1" @endif>
+                                <span class="selectgroup-button" id="insta-video-brand-counter-show">@if(isset($campaign) && !empty($campaign)) {{ $campaign->insta_video_brand_checkbox == 'on' ? $campaign->insta_video_brand_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -237,21 +237,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="youtube_video_self_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('youtube-video-self') " id="youtube-video-self">
+                              <input type="checkbox" name="youtube_video_self_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('youtube-video-self') " id="youtube-video-self" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_self_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Video (Self Shot)</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="youtube-video-self-num">
+                            <div class="selectgroup w-50" id="youtube-video-self-num"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_self_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'youtube-video-self')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="youtube_video_self_count" id="youtube-video-self-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="youtube-video-self-counter-show">1</span>
+                                <input type="text" name="youtube_video_self_count" id="youtube-video-self-counter"  class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_self_checkbox == 'on' ? 'value='.$campaign->youtube_video_self_count : 'value=1'}} @else value="1" @endif>
+                                <span class="selectgroup-button" id="youtube-video-self-counter-show">@if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_self_checkbox == 'on' ? $campaign->youtube_video_self_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -266,21 +266,21 @@
                           <div class="col-lg-3 col-md-4">
                             <!-- <div class="control-label">Toggle switch single</div> -->
                             <label class="custom-switch mt-2">
-                              <input type="checkbox" name="youtube_video_brand_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('youtube-video-brand') " id="youtube-video-brand">
+                              <input type="checkbox" name="youtube_video_brand_checkbox" class="custom-switch-input" onchange=" toggleCheckbox('youtube-video-brand') " id="youtube-video-brand" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_brand_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
                               <span class="custom-switch-indicator"></span>
                               <span class="custom-switch-description">Video (Brand Produced)</span>
                             </label>
                           </div>
                           <div class="col-lg-3 col-md-4 pt-2">
                             <!-- <label class="form-label">Size</label> -->
-                            <div class="selectgroup w-50" style="display:none" id="youtube-video-brand-num">
+                            <div class="selectgroup w-50" id="youtube-video-brand-num" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_brand_checkbox != 'on' ? 'style=display:none' : ''}} @else style="display:none" @endif>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="50" class="selectgroup-input" > -->
                                 <span class="selectgroup-button" onclick=" changeCounter('minus', 'youtube-video-brand')">-</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="text" name="youtube_video_brand_count" id="youtube-video-brand-counter" value="1" class="selectgroup-input">
-                                <span class="selectgroup-button" id="youtube-video-brand-counter-show">1</span>
+                                <input type="text" name="youtube_video_brand_count" id="youtube-video-brand-counter" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_brand_checkbox == 'on' ? 'value='.$campaign->youtube_video_brand_count : 'value=1'}} @else value="1" @endif>
+                                <span class="selectgroup-button" id="youtube-video-brand-counter-show">@if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_video_brand_checkbox == 'on' ? $campaign->youtube_video_brand_count : 1 }} @else 1 @endif</span>
                               </label>
                               <label class="selectgroup-item">
                                 <!-- <input type="radio" name="value" value="150" class="selectgroup-input"> -->
@@ -306,7 +306,7 @@
                         <div class="form-group row">
                           <div class="col-md-4"></div>
                           <div class="col-lg-4 col-md-6 text-right">
-                            <button type="submit" class="btn btn-icon icon-right btn-primary">Next <i class="fas fa-arrow-right"></i></button>
+                            <button type="submit" class="btn btn-icon icon-right btn-primary">@if(isset($campaign) && !empty($campaign)) Update & @endif Next <i class="fas fa-arrow-right"></i></button>
                           </div>
                         </div>
                       </div>

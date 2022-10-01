@@ -420,7 +420,7 @@
                             }
                         })
                         .done(function (response) {
-                            console.log(response);
+                            // console.log(response);
                             if (response.length == 0) {
                                 $('.auto-load').html("We don't have more data to display :(");
                                 return;

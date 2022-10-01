@@ -155,10 +155,12 @@ Route::group(['middleware'=>['auth'],'prefix' => 'brand'],function(){
 
     Route::get('/dashboard',[LoginController::class, 'dashboard'])->name('brand.dashboard');
     Route::get('/campaign/create',[CampaignController::class, 'create'])->name('brand.campaign.create');
-    Route::post('/campaign/create2',[CampaignController::class, 'create2'])->name('brand.campaign.create2');
-    Route::post('/campaign/create3',[CampaignController::class, 'create3'])->name('brand.campaign.create3');
-    Route::post('/campaign/finalcreate',[CampaignController::class, 'finalCreate'])->name('brand.campaign.finalcreate');
+    Route::get('/campaign/{id}/campaign-details',[CampaignController::class, 'editCampaign'])->name('brand.campaign.edit');
+    Route::post('/campaign/platform-details/{id?}',[CampaignController::class, 'create2'])->name('brand.campaign.create2');
+    Route::post('/campaign/influencer-details/{id?}',[CampaignController::class, 'create3'])->name('brand.campaign.create3');
+    Route::post('/campaign/finalcreate/{id?}',[CampaignController::class, 'finalCreate'])->name('brand.campaign.finalcreate');
     Route::get('/campaign/my-campaign',[CampaignController::class, 'list'])->name('brand.campaign.list');
+    Route::get('/campaign/{id}/campaign-show',[CampaignController::class, 'showCampaign'])->name('brand.campaign.show');
 
 });
 

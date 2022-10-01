@@ -210,11 +210,11 @@ $current_url = Route::currentRouteName();
                 </ul> -->
               </li>
               <!-- <li class="menu-header">Campaign</li> -->
-              <li class="dropdown {{ $current_url == 'brand.campaign.create' || $current_url == 'brand.campaign.list' ? 'active' : '' }}">
+              <li class="dropdown {{ $current_url == 'brand.campaign.create' || $current_url == 'brand.campaign.list' || $current_url == 'brand.campaign.show' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span> Campaign</span></a>
                 <ul class="dropdown-menu">
                   <li class="{{ $current_url == 'brand.campaign.create' ? 'active' : '' }}"><a class="nav-link " href="{{ route('brand.campaign.create') }}">Create</a></li>
-                  <li class="{{ $current_url == 'brand.campaign.list' ? 'active' : '' }}"><a class="nav-link " href="{{ route('brand.campaign.list') }}">List</a></li>
+                  <li class="{{ $current_url == 'brand.campaign.list' || $current_url == 'brand.campaign.show' ? 'active' : '' }}"><a class="nav-link " href="{{ route('brand.campaign.list') }}">My Campaign</a></li>
                   <!-- <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
                   <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li> -->
                 </ul>
@@ -273,8 +273,8 @@ $current_url = Route::currentRouteName();
         
         @if (Session::has('error'))
             iziToast.show({
-              title: 'error, ',
-              message: '{{ Session::get('success') }}',
+              title: 'Error, ',
+              message: '{{ Session::get('error') }}',
               position: 'bottomCenter' 
             });
         @elseif(Session::has('success'))

@@ -71,7 +71,7 @@
                       </div>
                     </div>
 
-                    <form class="wizard-content mt-2" method="POST" action="{{ route('brand.campaign.create2')}}">
+                    <form class="wizard-content mt-2" method="POST" @if(isset($campaign) && !empty($campaign))  action="{{ route('brand.campaign.create2',$campaign->unique_id) }}" @else action="{{ route('brand.campaign.create2') }}" @endif>
                       @csrf
                       <div class="wizard-pane">
                         <div class="form-group row">
@@ -90,15 +90,15 @@
                           <div class="col-lg-6 col-md-8">
                             <div class="selectgroup w-100">
                               <label class="selectgroup-item">
-                                <input type="radio" name="payment_type" value="paid" class="selectgroup-input" checked="checked">
+                                <input type="radio" name="payment_type" value="paid" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->payment_type == 'paid' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Paid</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="radio" name="payment_type" value="both" class="selectgroup-input">
+                                <input type="radio" name="payment_type" value="both" class="selectgroup-input"  @if(isset($campaign) && !empty($campaign)) {{ $campaign->payment_type == 'both' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Paid + Barter</span>
                               </label>
                               <label class="selectgroup-item">
-                                <input type="radio" name="payment_type" value="barter" class="selectgroup-input">
+                                <input type="radio" name="payment_type" value="barter" class="selectgroup-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->payment_type == 'barter' ? 'checked="checked"' : ''}} @endif required>
                                 <span class="selectgroup-button">Barter</span>
                               </label>
                             </div>
@@ -107,19 +107,19 @@
                         <div class="form-group row align-items-center">
                           <label class="col-md-4 text-md-right text-left">Title of the campaign*</label>
                           <div class="col-lg-6 col-md-8">
-                            <input type="text" name="title" value="" class="form-control" required>
+                            <input type="text" name="title" @if(isset($campaign) && !empty($campaign)) value="{{$campaign->title}}" @endif class="form-control" required>
                           </div>
                         </div>
                         <div class="form-group row align-items-center">
                           <label class="col-md-4 text-md-right text-left">Add campaign hashtag</label>
                           <div class="col-lg-6 col-md-8">
-                            <input type="text" name="hastags" value="" class="form-control">
+                            <input type="text" name="hastags"  @if(isset($campaign) && !empty($campaign)) value="{{$campaign->hastags}}" @endif class="form-control">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label class="col-md-4 text-md-right text-left mt-2">Campaign Description*</label>
                           <div class="col-lg-6 col-md-8">
-                            <textarea class="summernote-simple" name="description" required></textarea>
+                            <textarea class="summernote-simple" name="description" required> @if(isset($campaign) && !empty($campaign)) {{$campaign->description}} @endif</textarea>
                           </div>
                               
                         </div>
@@ -131,7 +131,7 @@
                                   <i class="fas fa-calendar"></i>
                                 </div>
                               </div>
-                              <input type="text" name="deadline" value="" class="form-control datepicker" required>
+                              <input type="text" name="deadline"  @if(isset($campaign) && !empty($campaign)) value="{{date('m/d/Y',strtotime($campaign->deadline))}}" @endif class="form-control datepicker" required>
                           </div>
                           <!-- <div class="col-lg-6 col-md-8">
                             
@@ -146,7 +146,7 @@
                                   <i class="fas fa-calendar"></i>
                                 </div>
                               </div>
-                              <input type="text" name="live_date" value="" class="form-control datepicker" required>
+                              <input type="text" name="live_date"  @if(isset($campaign) && !empty($campaign)) value="{{date('m/d/Y',strtotime($campaign->live_date))}}" @endif class="form-control datepicker" required>
                           </div>
                         </div>
                        
@@ -162,7 +162,7 @@
                         <div class="form-group row">
                           <div class="col-md-4"></div>
                           <div class="col-lg-4 col-md-6 text-right">
-                            <button type="submit" class="btn btn-icon icon-right btn-primary">Next <i class="fas fa-arrow-right"></i></button>
+                            <button type="submit" class="btn btn-icon icon-right btn-primary">@if(isset($campaign) && !empty($campaign)) Update & @endif Next <i class="fas fa-arrow-right"></i></button>
                           </div>
                         </div>
                       </div>
