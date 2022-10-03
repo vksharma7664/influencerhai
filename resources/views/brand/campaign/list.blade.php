@@ -112,8 +112,7 @@
                               <td>{{ $review->live_date }}</td>
                                <td>{{ ucwords($review->platform) }}</td>
                               <td>
-                                <a href="#" class="btn btn-secondary">Edit</a>
-                                <a href="#" class="btn btn-secondary">Detail</a>
+                                <button class="btn btn-lg btn-secondary">Under Review</button>
                               </td>
                             </tr>
                             @endforeach
@@ -149,7 +148,7 @@
                                <td>{{ ucwords($draft->platform) }}</td>
                               <td>
                                 <a href="{{ route('brand.campaign.edit', $draft->unique_id) }}" class="btn btn-secondary">Edit</a>
-                                <a href="#" class="btn btn-secondary">Post</a>
+                                <a href="{{ route('brand.campaign.post', $draft->unique_id) }}" class="btn btn-secondary">Post</a>
                               </td>
                             </tr>
                             @endforeach

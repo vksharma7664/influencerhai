@@ -206,4 +206,16 @@ class CampaignController extends Controller
     }
 
 
+    public function underReviewCampaign($id)
+    {
+        // show_campaign
+        $campaign = Campaign::where('unique_id',$id)->update([
+            'status'=>'post'
+        ]);
+        // return view('brand.campaign.show_campaign',['campaign'=> $campaign]);
+        Session::flash('status','review');
+        return redirect()->route('brand.campaign.list');
+    }
+
+
 }
