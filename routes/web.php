@@ -150,6 +150,8 @@ Route::get('/brand', function(){
     return redirect()->route('brand.login');      
 })->name('brand.login.redirect');
 Route::get('/brand/register', [LoginController::class, 'registerShow'])->name('brand.register');
+Route::get('/email/verify/{token?}', [LoginController::class, 'verifyEmail'])->name('brand.verify.email');
+Route::get('/email/verifysuccess', [LoginController::class, 'verifyEmailSuccess'])->name('brand.verify.email.success');
 Route::post('/brand/register', [LoginController::class, 'registerSubmit'])->name('brand.register.submit');
 Route::get('/brand/register/successful', [LoginController::class, 'registerSuccess'])->name('brand.register.success');
 
@@ -169,6 +171,8 @@ Route::group(['middleware'=>['auth','brand'],'prefix' => 'brand'],function(){
 });
 
 Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
+
+Route::get('/mail', [LoginController::class, 'testMail']);
 
 // create sitemap.xml
 Route::get('generate/sitemap', function(){
@@ -194,3 +198,4 @@ Route::get('generate/sitemap', function(){
     fclose($myfile);
     return response()->json("sitemap created successfully", 200);
 });
+

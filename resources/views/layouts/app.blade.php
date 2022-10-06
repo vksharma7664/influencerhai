@@ -134,10 +134,10 @@
                                                 <li>one</li>
                                             </ul> -->
                                         </li>
-                                        <li><a href="{{ route('careers')}}">Careers</a></li>
+                                        <li><a href="{{ route('contact')}}">Contact Us</a></li>
                                     </ul>
                                 </nav>
-                                <a href="{{ route('contact')}}" class="btn btn-sm btn-light-red br-6 btn-shatter-white btn-animate">Get in Touch</a>
+                                <a href="{{ route('brand.login')}}" class="btn btn-sm btn-light-red br-6 btn-shatter-white btn-animate">Sign up / Login</a>
                             </div>
                             <!-- responsive bar -->
                             <div class="animate-bar white-bar">

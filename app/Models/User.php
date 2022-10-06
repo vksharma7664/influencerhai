@@ -28,6 +28,7 @@ class User extends Authenticatable
         'company_url',
         'industry',
         'dashboard',
+        'remember_token',
     ];
 
     /**

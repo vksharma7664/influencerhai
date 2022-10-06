@@ -4,13 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use auth;
 
 class Admin
 {
 
-    use AuthenticatesUsers;
     /**
      * Handle an incoming request.
      *

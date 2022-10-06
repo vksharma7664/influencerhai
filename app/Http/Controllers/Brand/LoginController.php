@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Storage, Session;
+use Storage, Session, Str;
 
 class LoginController extends Controller
 {
@@ -24,7 +24,7 @@ class LoginController extends Controller
         return view('brand.auth.register');
     }
 
-    public function registerSubmit(User $user,RegisterRequest $request)
+    public function registerSubmit(RegisterRequest $request)
     {
         // code...
         // $request->dd();
@@ -33,7 +33,7 @@ class LoginController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $user->create([
+       $user =  User::create([
             'name' => $request->name,
             'email' => $request->email,
             'mobile' => $request->mobile,
@@ -44,8 +44,20 @@ class LoginController extends Controller
             'dashboard' => 'brand',
             'password' => $request->password,
         ]);
-        // dd($user);
+        // dd($user->id);
+        $token = md5( Str::random(64));
         //send verification mail to users
+        $user = User::find($user->id);
+        $user->remember_token = $token;
+        $user->save();
+        // ->update(['remember_token'=>$token]);
+        // dd($user);
+         $data = array('name'=>ucfirst($request->name), "verify_url" => route('brand.verify.email', $token));
+          \Mail::send('mail.email_verify', $data, function($message) use($user) {
+             $message->to($user->email, $user->name)->subject
+                ('Verify Email - InfluencerHai');
+             $message->from('contact@influencerhai.com','Influencer Hai');
+          });
         //redirect to registration success page
         $request->session()->flash('success','Your query has been submitted.');
         return redirect()->route('brand.register.success');
@@ -65,5 +77,51 @@ class LoginController extends Controller
     {
         // code...
         return view('brand.dashboard', ['title' => 'Dashboard']);
+    }
+
+    public function verifyEmail(Request $request, $token)
+    {
+        // code...
+        $user = User::where('remember_token', $token);
+        if($user->count() == 1){
+            $user->update([
+                'email_verified_at' => date('Y-m-d H:i:s')
+            ]);
+            $request->session()->flash('success','Your email verification has Successful.');
+        }else{
+            $request->session()->flash('error','Your email verification link has been expired.');
+        }
+        
+        return redirect()->route('brand.verify.email.success');
+    }
+
+     public function verifyEmailSuccess()
+    {
+        // code...
+        // $request->session()->flash('success','Your email verification has Successful.');
+       if(Session::has('success')){
+            Session::flash('success','Your email verification has Successful.');
+            return view('brand.auth.email_verify', ['title' => 'Email Verification Successful']);
+
+        }else{
+            Session::flash('error','Your email verification link has been expired.');
+            return view('brand.auth.email_verify', ['title' => 'Email Verification Successful']);
+
+        }
+        return redirect()->route('home');
+
+
+
+    }
+
+    public function testMail()
+    {
+        $data = array('name'=>"Vikesh", "verify_url" => "influencerhai.com");
+      \Mail::send('mail.email_verify', $data, function($message) {
+         $message->to('fantasy.vikesh@gmail.com', '')->subject
+            ('Verify Email - InfluencerHai');
+         $message->from('contact@influencerhai.com','Influencer Hai');
+      });
+      echo "HTML Email Sent. Check your inbox.";
     }
 }
