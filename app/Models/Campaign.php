@@ -68,6 +68,11 @@ class Campaign extends Model
         return $this->hasMany(Campaign_category::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function locations()
     {
         return $this->hasMany(Campaign_location::class);

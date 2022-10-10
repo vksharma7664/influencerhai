@@ -16,6 +16,8 @@ use App\Http\Controllers\admin\CareerController;
 use App\Http\Controllers\admin\MetaController;
 use App\Http\Controllers\Brand\LoginController;
 use App\Http\Controllers\Brand\CampaignController;
+use App\Http\Controllers\admin\CampaignAdminController;
+use App\Http\Controllers\admin\BrandAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,6 +142,13 @@ Route::group(['middleware'=>['auth', 'permission', 'admin'],'prefix' => 'admin']
     Route::post('/meta/submit',[MetaController::class, 'submit'])->name('meta.store');
     Route::get('/meta/edit/{id}',[MetaController::class, 'edit'])->name('meta.edit');
     Route::post('/meta/update/{id}',[MetaController::class, 'update'])->name('meta.update');
+
+     // campaign routes
+    Route::get('/campaign/list',[CampaignAdminController::class, 'listing'])->name('campaign.show');
+    Route::get('/campaign/details/{unique_id}',[CampaignAdminController::class, 'campaignDetails'])->name('admin.campaign.details');
+    Route::post('/campaign/status/change/{unique_id}',[CampaignAdminController::class, 'campaignStatusChange'])->name('admin.campaign.status.change');
+    Route::get('/brands/list',[BrandAdminController::class, 'listing'])->name('admin.brand.show');
+
 
 });
 

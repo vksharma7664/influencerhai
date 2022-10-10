@@ -19,13 +19,28 @@
             </div>
         </div>
     </section>
+    <div class="container siderbar-search mt-30 get-bottom animate">
+        <form method="GET" action="{{ route('blog') }}">
+            <div class="subscribe-input d-flex align-items-center justify-content-between btn-radious">
+                <div class="animation-form include-btn">
+                    <span></span>
+                    <input name="search" type="text" class="form-control" placeholder="enter your keywords">
+                </div>
+                <button type="submit" class="search-icon">
+                    <i class="icofont-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
    
     <!-- blog mesonry start here -->
     <div class="blog-mesonry-area section-bg-padding">
         <div class="container">
             <div class="row mesonry" id="data-wrapper">
+                @php $i=0; @endphp
                 @foreach($blogs as $blog)
+                 @php $i=$i+1; @endphp
                 <div class="col-lg-4 col-sm-6 mesonry-item">
                     <a href="{{ route('blog.details', $blog->slug)}}">
                     <div class="single-mesonry single-blog radious-10 bg-white border-shadow">
@@ -49,7 +64,13 @@
             
         </div>
     </div>
+    @if($i != 0)
     @include('front.include.load_more')
+    @else
+    <div class="text-center">
+        We don't have more data to display :(
+    </div>
+    @endif
     <!-- blog mesonry end here -->
     <!-- {{$blogs->links()}} -->
 

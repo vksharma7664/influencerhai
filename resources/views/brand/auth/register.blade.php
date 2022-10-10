@@ -82,9 +82,31 @@
                                     <div class="form-outline mb-4" style="padding-bottom: 50px;">
                                         <select id="form3Example4cg" class="form-control form-control-lg" name="industry"  required>
                                            <!-- <option value="">Select</option> -->
-                                            <option value="it">IT</option>
-                                            <option value="automobile">Automobile</option>
-                                            <option value="fashion">Fashion</option>
+                                           <option value="Advertising/Marketing/Branding/PR"> Advertising/Marketing/Branding/PR </option>
+                                            <option value="Automobile"> Automobile </option>
+                                            <option value="Banking"> Banking/Finance </option>
+                                            <option value="Cosmetic"> Cosmetic/Personal Care </option>
+                                            <option value="Events"> Events/Movies </option>
+                                            <option value="Fashion"> Fashion </option>
+                                            <option value="Financial Institution"> Financial Institution/Investment Bank </option>
+                                            <option value="Fitness"> Fitness </option>
+                                            <option value="FMCG"> FMCG </option>
+                                            <option value="Food"> Food/Beverage </option>
+                                            <option value="Gaming"> Gaming </option>
+                                            <option value="Health"> Health (Vitamin/Mineral/Herb/Supplements) </option>
+                                            <option value="IT"> IT </option>
+                                            <option value="Manufacturer"> Manufacturer </option>
+                                            <option value="Market Research"> Market Research </option>
+                                            <option value="Mass Media"> Mass Media (Newspapers, TV, Radio, <option value="Magazines, etc.) </option>
+                                            <option value="Natural Living/Home/Textile"> Natural Living/Home/Textile </option>
+                                            <option value="Nutraceuticals"> Nutraceuticals </option>
+                                            <option value="Online Fantasy Gaming"> Online Fantasy Gaming </option>
+                                            <option value="Packaging"> Packaging/Design </option>
+                                            <option value="Pharmaceuticals"> Pharmaceuticals </option>
+                                            <option value="Retail"> Retail </option>
+                                            <option value="School"> School/University </option>
+                                            <option value="Services"> Services </option>
+                                            <option value="Sports"> Sports </option>
                                         </select>
                                         @if ($errors->has('industry'))
                                           <span class="error" style="color: red;">{{ $errors->first('industry') }}</span>

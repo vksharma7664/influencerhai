@@ -319,6 +319,44 @@
                         </ul>
                     </li>
                      @endcan
+
+                    @canany(['campaign.show'])
+                    <!-- begin CHARTS DROPDOWN -->
+                    <li class="panel">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#campaign">
+                            <i class="fa fa-bar-chart-o"></i>Campaigns <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="collapse nav @yield('campaign_right_in')" id="campaign">
+                            
+                            @can('campaign.show')
+                            <li>
+                                <a href="{{ route('campaign.show') }}">
+                                    <i class="fa fa-angle-double-right"></i> Show Campaigns
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                     @endcan
+
+                     @canany(['admin.brand.show'])
+                    <!-- begin CHARTS DROPDOWN -->
+                    <li class="panel">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#brand">
+                            <i class="fa fa-bar-chart-o"></i>Brands <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="collapse nav @yield('brand_right_in')" id="brand">
+                            
+                            @can('admin.brand.show')
+                            <li>
+                                <a href="{{ route('admin.brand.show') }}">
+                                    <i class="fa fa-angle-double-right"></i> Show Brands
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                     @endcan
                 </ul>
                 <!-- /.side-nav -->
             </div>

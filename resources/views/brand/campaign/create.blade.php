@@ -4,7 +4,7 @@
 @section('css')
   @parent
     <!-- <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> -->
-  <link rel="stylesheet" href="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/summernote/summernote-bs4.css' }}">
+  <link rel="stylesheet" href="{{ asset('brand-assets/modules/summernote/summernote-bs4.css') }}">
   <link rel="stylesheet" href="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/codemirror/lib/codemirror.css' }}">
   <link rel="stylesheet" href="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/codemirror/theme/duotone-dark.css' }}">
   <link rel="stylesheet" href="{{ env('AWS_BASEURL_IMAGE').'brand-assets/modules/jquery-selectric/selectric.css' }}">

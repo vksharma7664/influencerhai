@@ -209,7 +209,13 @@ class FrontController extends Controller
 
     public function Blog(Request $request)
     {
-        $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->orderBy('id', 'desc')->paginate(8);
+        if(isset($request->search)){
+            // dd($request->all());
+            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.title','like','%'.$request->search.'%')->orderBy('id', 'desc')->paginate(8);
+        }else{
+            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->orderBy('id', 'desc')->paginate(8);
+        }
+        
 
         if ($request->ajax()) {
            
