@@ -36,6 +36,11 @@ class Campaign extends Model
           "youtube_video_brand_count",
           "influencer_gender",
           "status",
+          "youtube_integrated_checkbox",
+          "youtube_dedicated_checkbox",
+          "youtube_link_desc_checkbox",
+          "youtube_pin_comment_checkbox",
+          "file",
     ];
 
     protected function deadline(): Attribute

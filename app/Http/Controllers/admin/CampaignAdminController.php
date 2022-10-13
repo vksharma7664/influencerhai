@@ -9,6 +9,8 @@ use App\Models\Campaign_influencer_type;
 use App\Models\Campaign_location;
 use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SampleInfulencerDetails;
 
 class CampaignAdminController extends Controller
 {
@@ -31,5 +33,11 @@ class CampaignAdminController extends Controller
         ]);
         $request->session()->flash('msg','Status Saved Successfully');
             return redirect()->route('admin.campaign.details',$id);
+    }
+
+    public function campaignSampleUpload(Request $request)
+    {
+        Excel::import(new SampleInfulencerDetails, request()->file('excel'));
+        dd('yes');
     }
 }

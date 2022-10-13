@@ -60,7 +60,7 @@
                             </ul>
                           </div>
                         </div>
-
+                        @if($campaign->types()->count() > 0)
                         <div class="row">                               
                           <div class="form-group col-md-6 col-12">
                             <label class="label">Type</label>
@@ -71,7 +71,10 @@
                             </ul>
                           </div>
                         </div>
+                        @endif
 
+                        
+                        @if($campaign->categories()->count() > 0)
                         <div class="row">                               
                           <div class="form-group col-md-6 col-12">
                             <label class="label">Category</label>
@@ -82,7 +85,9 @@
                             </ul>
                           </div>
                         </div>
+                        @endif
 
+                        @if($campaign->locations()->count() > 0)
                         <div class="row">                               
                           <div class="form-group col-md-6 col-12">
                             <label class="label">Location</label>
@@ -93,7 +98,33 @@
                             </ul>
                           </div>
                         </div>
+                        @endif
+
+
+                        @if($campaign->referenceLinks()->count() > 0)
+                        <div class="row">                               
+                          <div class="form-group col-md-6 col-12">
+                            <label class="label">Reference Links</label>
+                            <ul class="no-bullets">
+                              @foreach($campaign->referenceLinks as $link)
+                              <li><a href="{{$link->link}}" target="_blank">{{ $link->link }}</a></li>
+                              @endforeach
+                            </ul>
+                          </div>
+                        </div>
+                        @endif
                         
+                        @if($campaign->file != null)
+                        <div class="row">                               
+                          <div class="form-group col-md-6 col-12">
+                            <label class="label">Reference file</label>
+                            <ul class="no-bullets">
+                              <li><a href="{{env('AWS_BASEURL_IMAGE')}}{{$campaign->file}}" target="_blank" class=" btn btn-outline-primary">Download</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        @endif
+
                     </div>
                     <!-- <div class="card-footer text-right">
                       <button class="btn btn-primary">Save Changes</button>
@@ -115,7 +146,7 @@
                         </div>
 
                         <div class="row">                               
-                          <div class="form-group col-md-6 col-12">
+                          <div class="form-group col-md-12 col-12">
                             <label class="label">Deliverable</label>
                             <ul class="no-bullets">
                               @if($campaign->platform == 'instagram')
@@ -141,6 +172,18 @@
                                 @endif
                                  @if($campaign->youtube_video_brand_checkbox == 'on')
                                 <li>Video (Brand Shot)</li>
+                                @endif
+                                 @if($campaign->youtube_integrated_checkbox == 'on')
+                                <li>Integrated Video</li>
+                                @endif
+                                 @if($campaign->youtube_dedicated_checkbox == 'on')
+                                <li>Dedicated Video</li>
+                                @endif
+                                 @if($campaign->youtube_link_desc_checkbox == 'on')
+                                <li>Link in Description</li>
+                                @endif
+                                 @if($campaign->youtube_pin_comment_checkbox == 'on')
+                                <li>Pin Comment</li>
                                 @endif
                               @endif
                             </ul>

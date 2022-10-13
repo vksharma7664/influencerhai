@@ -9,7 +9,7 @@ use App\Models\Campaign_influencer_type;
 use App\Models\Campaign_location;
 use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
-use Session, DB, auth;
+use Session, DB, auth, Storage;
 
 class CampaignController extends Controller
 {
@@ -104,7 +104,27 @@ class CampaignController extends Controller
             ]);
             $campaign = Campaign::where('unique_id',$id)->first();
         endif;
-        // dd($request_data);
+       
+
+        if($request->hasFile('image')) //image check Aviable Or | Not
+        {
+            // dd('vikesh');
+            //$image=$request->file('image')->store('public/post'); method 1
+            
+            // $image=$request->file('image');
+            // $ext=$image->extension();
+            // $file=$image->getClientOriginalName().'.'.$ext;
+            // // $image->storeAs('/public/blog/post',$file); // not used
+            // $image->move(public_path().'/uploads/blog/post',$file);
+            // $data['image']=$file;
+            $file = $request->file('image');
+            $imageName=$file->getClientOriginalName();
+            $filePath = 'campaign/'.$campaign->id.'/' . $imageName;
+            Storage::disk('s3')->put($filePath, file_get_contents($file));
+            $data['file']='campaign/'.$campaign->id.'/' . $imageName;
+            Campaign::where('id',$campaign->id)->update($data);
+        }
+         // dd($request->all());
 
         //add Influencer category
         if(isset($request['influencer_categories']) && $request['influencer_categories'] != null):

@@ -63,38 +63,68 @@
                                                       </div>
                                                     </div>
 
-                                                    <div class="row">                               
-                                                      <div class="form-group col-md-6 col-12">
-                                                        <label class="label">Type</label>
-                                                        <ul class="no-bullets">
+                                                     @if($campaign->types()->count() > 0)
+                                                      <div class="row">                               
+                                                        <div class="form-group col-md-6 col-12">
+                                                          <label class="label">Type</label>
+                                                          <ul class="no-bullets">
                                                             @foreach($campaign->types as $type)
                                                             <li>{{ $type->type }}</li>
                                                             @endforeach
-                                                        </ul>
+                                                          </ul>
+                                                        </div>
                                                       </div>
-                                                    </div>
+                                                      @endif
 
-                                                    <div class="row">                               
-                                                      <div class="form-group col-md-6 col-12">
-                                                        <label class="label">Category</label>
-                                                        <ul class="no-bullets">
+                                                      
+                                                      @if($campaign->categories()->count() > 0)
+                                                      <div class="row">                               
+                                                        <div class="form-group col-md-6 col-12">
+                                                          <label class="label">Category</label>
+                                                          <ul class="no-bullets">
                                                             @foreach($campaign->categories as $cat)
                                                             <li>{{ $cat->category }}</li>
                                                             @endforeach
-                                                        </ul>
+                                                          </ul>
+                                                        </div>
                                                       </div>
-                                                    </div>
+                                                      @endif
 
-                                                    <div class="row">                               
-                                                      <div class="form-group col-md-6 col-12">
-                                                        <label class="label">Location</label>
-                                                        <ul class="no-bullets">
+                                                      @if($campaign->locations()->count() > 0)
+                                                      <div class="row">                               
+                                                        <div class="form-group col-md-6 col-12">
+                                                          <label class="label">Location</label>
+                                                          <ul class="no-bullets">
                                                             @foreach($campaign->locations as $loc)
                                                             <li>{{ $loc->location }}</li>
                                                             @endforeach
-                                                        </ul>
+                                                          </ul>
+                                                        </div>
                                                       </div>
-                                                    </div>
+                                                      @endif
+
+
+                                                      @if($campaign->referenceLinks()->count() > 0)
+                                                      <div class="row">                               
+                                                        <div class="form-group col-md-6 col-12">
+                                                          <label class="label">Reference Links</label>
+                                                          <ul class="no-bullets">
+                                                            @foreach($campaign->referenceLinks as $link)
+                                                            <li><a href="{{$link->link}}" target="_blank">{{ $link->link }}</a></li>
+                                                            @endforeach
+                                                          </ul>
+                                                        </div>
+                                                      </div>
+                                                      @endif
+                                                      
+                                                      @if($campaign->file != null)
+                                                      <div class="row">                               
+                                                        <div class="form-group col-md-6 col-12">
+                                                          <label class="label">Reference file</label>
+                                                         <a href="{{env('AWS_BASEURL_IMAGE')}}{{$campaign->file}}" target="_blank" class=" btn btn-info">Download</a>
+                                                        </div>
+                                                      </div>
+                                                      @endif
                                                     
                                                 </div>
                                                 <!-- <div class="card-footer text-right">
@@ -117,7 +147,7 @@
                                                     </div>
 
                                                     <div class="row">                               
-                                                      <div class="form-group col-md-6 col-12">
+                                                      <div class="form-group col-md-12 col-12">
                                                         <label class="label">Deliverable</label>
                                                         <ul class="no-bullets">
                                                           @if($campaign->platform == 'instagram')
@@ -143,6 +173,18 @@
                                                             @endif
                                                              @if($campaign->youtube_video_brand_checkbox == 'on')
                                                             <li>Video (Brand Shot)</li>
+                                                            @endif
+                                                             @if($campaign->youtube_integrated_checkbox == 'on')
+                                                            <li>Integrated Video</li>
+                                                            @endif
+                                                             @if($campaign->youtube_dedicated_checkbox == 'on')
+                                                            <li>Dedicated Video</li>
+                                                            @endif
+                                                             @if($campaign->youtube_link_desc_checkbox == 'on')
+                                                            <li>Link in Description</li>
+                                                            @endif
+                                                             @if($campaign->youtube_pin_comment_checkbox == 'on')
+                                                            <li>Pin Comment</li>
                                                             @endif
                                                           @endif
                                                         </ul>
@@ -224,7 +266,21 @@
                                 <!-- </div> -->
                                 <!-- /.table-responsive -->
                             </div>
+                            <hr>
                             <!-- /.portlet-body -->
+                            <div class=" row">
+                              <div class="col-md-12">
+                                <div class="portlet-body">
+                                  <form method="POST" action="{{ route('admin.campaign.sample.upload', $campaign->unique_id) }}" enctype="multipart/form-data">
+                                      @csrf
+                                      <label>Change Status</label>
+                                      <input type="hidden" name="unique_id" value="{{$campaign->unique_id}}">
+                                      <input type="file" name="excel" class="form-control">
+                                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                  </div>
+                              </div>
+                            </div>
                         </div>
                         <!-- /.portlet -->
 

@@ -209,38 +209,51 @@ class FrontController extends Controller
 
     public function Blog(Request $request)
     {
+        $search='';
         if(isset($request->search)){
             // dd($request->all());
-            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.title','like','%'.$request->search.'%')->orderBy('id', 'desc')->paginate(8);
+            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.title','like','%'.$request->search.'%')->orderBy('id', 'desc')
+            // ->count();
+            ->paginate(8);
+            $search= $request->search;
         }else{
-            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->orderBy('id', 'desc')->paginate(8);
+            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->orderBy('id', 'desc')
+            // ->count();
+            ->paginate(8);
         }
         
-
-        if ($request->ajax()) {
+        // if ($request->ajax()) {
            
-            return response()->view('front.ajax.blogs', compact('blogs'));;
-        }
+        //     return response()->view('front.ajax.blogs', compact('blogs'));;
+        // }
 
-        return view('front.blog', ['title' => 'Influencer Marketing Daily Blog & Updates - InfluencerHai.com', 'blogs' => $blogs]);
+        return view('front.blog', ['title' => 'Influencer Marketing Daily Blog & Updates - InfluencerHai.com', 'blogs' => $blogs, 'search'=>$search]);
     }
 
     public function BlogCategory(Request $request, $slug)
     {
         $category=DB::table('post_categories')->where('slug', $slug)->first();
         $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.post_cat_id',$category->id)->orderBy('id', 'desc')->paginate(8);
+
+        $search='';
+        if(isset($request->search)){
+            // dd($request->all());
+            $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.post_cat_id',$category->id)->where('posts.title','like','%'.$request->search.'%')->orderBy('id', 'desc')->paginate(8);
+            
+            $search= $request->search;
+        }else{
+           $blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.post_cat_id',$category->id)->orderBy('id', 'desc')->paginate(8);
+        }
+
          $meta = [];
         $meta['meta_title']     = $category->meta_title ?? '';
         $meta['meta_desc']      = $category->meta_desc ?? '';
         $meta['meta_tags']      = $category->tags ?? '';
         $meta['meta_keywords']  = $category->keywords ?? '';
 
-        if ($request->ajax()) {
-           
-            return response()->view('front.ajax.blogs', compact('blogs'));;
-        }
+      
 
-        return view('front.blog_category', ['title' => 'Influencer Marketing Daily Blog & Updates - InfluencerHai.com', 'category' => $category, 'meta_details' => $meta, 'blogs' => $blogs]);
+        return view('front.blog_category', ['title' => 'Influencer Marketing Daily Blog & Updates - InfluencerHai.com', 'category' => $category, 'meta_details' => $meta, 'blogs' => $blogs, 'search'=>$search]);
     }
 
     

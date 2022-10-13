@@ -21,11 +21,28 @@
     </section>
 
    
+    <div class="container siderbar-search mt-30 get-bottom animate">
+        <form method="GET" action="{{ route('blog.category', $category->slug) }}">
+            <div class="subscribe-input d-flex align-items-center justify-content-between btn-radious">
+                <div class="animation-form include-btn">
+                    <span></span>
+                    <input name="search" type="text" class="form-control" placeholder="enter your keywords" value="{{ $search }}">
+                </div>
+                <button type="submit" class="search-icon">
+                    <i class="icofont-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+   
     <!-- blog mesonry start here -->
-    <div class="blog-mesonry-area section-bg-padding">
+    <div class="blog-mesonry-area section-bg-padding" style="overflow-x: auto !important;">
         <div class="container">
             <div class="row mesonry">
-                @forelse($blogs as $blog)
+                @php $i=0; @endphp
+                @foreach($blogs as $blog)
+                 @php $i=$i+1; @endphp
                 <div class="col-lg-4 col-sm-6 mesonry-item">
                     <a href="{{ route('blog.details', $blog->slug)}}">
                     <div class="single-mesonry single-blog radious-10 bg-white border-shadow">
@@ -42,27 +59,23 @@
                     </div>
                     </a>
                 </div>
-                @empty
-                <p>No Blogs !!!</p>
-                @endforelse
+                @endforeach
+
+            </div>
+            <div class="row mesonry" id="data-wrapper">
             </div>
             <!-- add load more button here -->
-            @include('front.include.load_more')
+            
         </div>
     </div>
-    <!-- blog mesonry end here -->
-    <!-- {{$blogs->links()}} -->
-
-    <!-- <div class="blog-navigation d-flex justify-content-center pb-50">
-        <ul class="d-flex align-items-center get-bottom " style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
-            <li class="am-comon d-center"><i class="icofont-thin-right rotate-180 text-25 d-block"></i></li>
-            <li class="am-comon d-center active">1</li>
-            <li class="am-comon d-center">2</li>
-            <li class="am-comon d-center">3</li>
-            <li class="am-comon d-center">4</li>
-            <li class="am-comon d-center"><i class="icofont-thin-right text-25"></i></li>
-        </ul>
-    </div> -->
+    @if($i != 0)
+  
+    {{ $blogs->links() }}
+    @else
+    <div class="text-center">
+        We don't have more data to display :(
+    </div>
+    @endif
 @endsection
 
 @section('scripts')

@@ -290,6 +290,54 @@
                             </div>
                           </div>
                           <!-- first toggle -->
+                          <!--  toggle -->
+                          <label class="col-md-4 text-md-right text-left"></label>
+                          <div class="col-lg-6 col-md-8">
+                            <!-- <div class="control-label">Toggle switch single</div> -->
+                            <label class="custom-switch mt-2">
+                              <input type="checkbox" name="youtube_integrated_checkbox" class="custom-switch-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_integrated_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
+                              <span class="custom-switch-indicator"></span>
+                              <span class="custom-switch-description">Intregrated Video</span>
+                            </label>
+                          </div>
+                          
+                          <!--  toggle -->
+                          <!--  toggle -->
+                          <label class="col-md-4 text-md-right text-left"></label>
+                          <div class="col-lg-6 col-md-8">
+                            <!-- <div class="control-label">Toggle switch single</div> -->
+                            <label class="custom-switch mt-2">
+                              <input type="checkbox" name="youtube_dedicated_checkbox" class="custom-switch-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_dedicated_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
+                              <span class="custom-switch-indicator"></span>
+                              <span class="custom-switch-description">Dedicated Video</span>
+                            </label>
+                          </div>
+                          
+                          <!--  toggle -->
+                          <!--  toggle -->
+                          <label class="col-md-4 text-md-right text-left"></label>
+                          <div class="col-lg-6 col-md-8">
+                            <!-- <div class="control-label">Toggle switch single</div> -->
+                            <label class="custom-switch mt-2">
+                              <input type="checkbox" name="youtube_link_desc_checkbox" class="custom-switch-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_link_desc_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
+                              <span class="custom-switch-indicator"></span>
+                              <span class="custom-switch-description">Link in Description</span>
+                            </label>
+                          </div>
+                          
+                          <!--  toggle -->
+                          <!--  toggle -->
+                          <label class="col-md-4 text-md-right text-left"></label>
+                          <div class="col-lg-6 col-md-8">
+                            <!-- <div class="control-label">Toggle switch single</div> -->
+                            <label class="custom-switch mt-2">
+                              <input type="checkbox" name="youtube_pin_comment_checkbox" class="custom-switch-input" @if(isset($campaign) && !empty($campaign)) {{ $campaign->youtube_pin_comment_checkbox == 'on' ? 'checked="checked"' : ''}} @endif>
+                              <span class="custom-switch-indicator"></span>
+                              <span class="custom-switch-description">Pin Comment</span>
+                            </label>
+                          </div>
+                          
+                          <!--  toggle -->
                           
                         </div>
                         

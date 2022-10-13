@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
         }
         // dd($main_details);
         View::share('shared_data', $main_details);
+
+        Paginator::defaultView('vendor.pagination.custom');
+ 
+        Paginator::defaultSimpleView('vendor.pagination.simple-default');
         
     }
 }
