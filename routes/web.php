@@ -183,6 +183,9 @@ Route::group(['middleware'=>['auth','brand'],'prefix' => 'brand'],function(){
     Route::get('/campaign/{id}/campaign-show',[CampaignController::class, 'showCampaign'])->name('brand.campaign.show');
     Route::get('/campaign/{id}/make-ongoing',[CampaignController::class, 'underReviewCampaign'])->name('brand.campaign.post');
 
+    Route::get('/campaign/{id}/influencers-list',[CampaignController::class, 'sampleInfluencers'])->name('brand.campaign.sample.influencer');
+    Route::post('/campaign/influencers-list/selected',[CampaignController::class, 'sampleInfluencersSelected'])->name('brand.campaign.sample.influencer.selected');
+
 });
 
 Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');

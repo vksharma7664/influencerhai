@@ -11,6 +11,8 @@ use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SampleInfulencerDetails;
+use App\Models\CampaignSampleProvide;
+
 
 class CampaignAdminController extends Controller
 {
@@ -35,9 +37,13 @@ class CampaignAdminController extends Controller
             return redirect()->route('admin.campaign.details',$id);
     }
 
-    public function campaignSampleUpload(Request $request)
+    public function campaignSampleUpload(Request $request,$id)
     {
-        Excel::import(new SampleInfulencerDetails, request()->file('excel'));
-        dd('yes');
+        // $request->dd();
+        CampaignSampleProvide::where('campaign_id', $request->id)->delete();
+        Excel::import(new SampleInfulencerDetails($request->id), request()->file('excel'));
+        // dd('yes');
+        $request->session()->flash('msg','Status Saved Successfully');
+        return redirect()->route('admin.campaign.details',$id);
     }
 }

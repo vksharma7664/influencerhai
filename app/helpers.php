@@ -8,4 +8,8 @@
 	}
 // }
 
+	function makeSlugFree($string){
+		return ucwords(str_replace('_',' ',$string));
+	}
+
 ?>

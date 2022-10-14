@@ -9,6 +9,7 @@ use App\Models\Campaign_influencer_type;
 use App\Models\Campaign_location;
 use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
+use App\Models\CampaignSampleProvide;
 use Session, DB, auth, Storage;
 
 class CampaignController extends Controller
@@ -235,6 +236,32 @@ class CampaignController extends Controller
         // return view('brand.campaign.show_campaign',['campaign'=> $campaign]);
         Session::flash('status','review');
         return redirect()->route('brand.campaign.list');
+    }
+
+    public function sampleInfluencers($id)
+    {
+        // show_campaign
+        $campaign = Campaign::where('unique_id',$id)->first();
+        $influencer_list = CampaignSampleProvide::where('campaign_id',$campaign->id)->get();
+        $headings = array_keys(json_decode($influencer_list[0]->other_data,true));
+        // dd($influencer_list);
+        // return view('brand.campaign.show_campaign',['campaign'=> $campaign]);
+        Session::flash('status','review');
+        return view('brand.campaign.show_influencers_list',['campaign'=> $campaign, 'influencer_list'=>$influencer_list, 'headings'=>$headings]);
+    }
+
+    public function sampleInfluencersSelected(Request $request)
+    {
+        $influencer_list = CampaignSampleProvide::where('campaign_id',$request->campaign_id)->get()->toArray();
+        // $request->dd();
+        foreach($influencer_list as $list){
+            CampaignSampleProvide::where('id', $list['id'])->update([
+                'selected' => isset($request['select_'.$list['id']]) ? 1 : null,
+                'remark'    => isset($request['remark_'.$list['id']]) ? $request['remark_'.$list['id']] : null
+            ]);
+        }
+        Session::flash('msg','List Saved Successfully');
+        return redirect()->back();
     }
 
 

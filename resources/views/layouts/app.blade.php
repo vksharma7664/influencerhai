@@ -55,6 +55,41 @@
                         display: block;
                         height: 135px;
                     }
+
+                    .float{
+                        position:fixed;
+                        width:50px;
+                        height:50px;
+                        bottom:40px;
+                        right:40px;
+                        background-color:#25d366;
+                        color:#FFF;
+                        border-radius:50px;
+                        text-align:center;
+                      font-size:30px;
+                        box-shadow: 2px 2px 3px #999;
+                      z-index:100;
+                    }
+
+                    .float2{
+                        position:fixed;
+                        width:50px;
+                        height:50px;
+                        bottom:120px;
+                        right:40px;
+                        background-color:#25d366;
+                        color:#FFF;
+                        border-radius:50px;
+                        text-align:center;
+                      font-size:30px;
+                        box-shadow: 2px 2px 3px #999;
+                      z-index:100;
+                    }
+
+                    .my-float{
+                        margin-top:20px;
+                    }
+
                 </style>
            
         @show
@@ -161,6 +196,12 @@
         @section('footer')
             <!--footer area start here-->
             <footer class="footer-area relative pt-md-60 bg-blue2">
+                <a href="https://api.whatsapp.com/send?phone=+918235932170&text=Hello" class="float" target="_blank">
+                <i class="icofont-whatsapp my-float"></i>
+                </a>
+                <a href="tel:+918235932170" class="float2" target="_blank">
+                <i class="icofont-phone my-float"></i>
+                </a>
                 <div class="footer-animation">
                     <img class="footer-ani1" src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/home2/footer-ani.png' }}" alt="">
                     <img class="footer-ani2" src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/home2/footer-ani.png' }}" alt="">

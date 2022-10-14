@@ -26,7 +26,7 @@
 <!-- end PAGE TITLE ROW -->
 <div class="row">
     <div class="col-lg-12">
-    <p class="text-center text-red">{{session('msg')}}</p>
+    <p class="text-center text-green">{{session('msg')}}</p>
                         <div class="portlet portlet-default">
                             <div class="portlet-heading">
                                 <div class="portlet-title">
@@ -273,10 +273,12 @@
                                 <div class="portlet-body">
                                   <form method="POST" action="{{ route('admin.campaign.sample.upload', $campaign->unique_id) }}" enctype="multipart/form-data">
                                       @csrf
-                                      <label>Change Status</label>
-                                      <input type="hidden" name="unique_id" value="{{$campaign->unique_id}}">
+                                      <label>Share Sample File</label>
+                                      <input type="hidden" name="id" value="{{$campaign->id}}">
                                       <input type="file" name="excel" class="form-control">
-                                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                                      <div class="mt-3">
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                      </div>
                                     </form>
                                   </div>
                               </div>

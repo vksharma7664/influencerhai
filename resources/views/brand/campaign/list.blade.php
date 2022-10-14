@@ -113,6 +113,9 @@
                                <td>{{ ucwords($review->platform) }}</td>
                               <td>
                                 <button class="btn btn-lg btn-secondary">Under Review</button>
+                                @if($review->sampleProvide()->count() > 0)
+                                <a href="{{ route('brand.campaign.sample.influencer',$review->unique_id) }}" class="btn btn-lg btn-info">Show Influencers</a>
+                                @endif
                               </td>
                             </tr>
                             @endforeach

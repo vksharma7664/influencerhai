@@ -92,4 +92,9 @@ class Campaign extends Model
     {
         return $this->hasMany(Campaign_reference_link::class);
     }
+
+    public function sampleProvide()
+    {
+        return $this->hasMany(CampaignSampleProvide::class);
+    }
 }
