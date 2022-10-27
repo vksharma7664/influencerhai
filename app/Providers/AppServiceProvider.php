@@ -34,6 +34,15 @@ class AppServiceProvider extends ServiceProvider
         foreach ($data as $one) {
             $main_details[$one->route] = (array) $one;
         }
+
+        $data = DB::table('custom_influencer_pages')->get();
+        $pages = [];
+        foreach ($data as $value) {
+            // code...
+            $pages[]= [$value->slug,$value->title];
+        }
+        
+        $main_details['pages'] = $pages;
         // dd($main_details);
         View::share('shared_data', $main_details);
 

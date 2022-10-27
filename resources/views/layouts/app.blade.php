@@ -1,6 +1,6 @@
 @php
+    $pages = $shared_data['pages'];
     $shared_data = $shared_data[Route::currentRouteName()] ?? [];
-    
 @endphp
 
 <!DOCTYPE html>
@@ -211,7 +211,7 @@
                       
                         <div class="footer-conent-area bdr-y-white py-50 width-100p px-15">
                             <div class="row">
-                                <div class="col-lg-4 col-sm-6">
+                                <div class="col-lg-3 col-sm-6">
                                     <div class="company-menu comon-footer mb-md-50 animate get-bottom">
                                         <h3 class="pb-50 pb-sm-25 text-white animate">Our Company</h3>
                                         <ul class="animate get-bottom hover-pink-ftr">
@@ -223,7 +223,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-6">
+                                <div class="col-lg-2 col-sm-6">
                                     <div class="company-menu comon-footer mb-md-50 animate get-bottom">
                                         <h3 class="pb-50 pb-sm-25 text-white text-capital animate">feature</h3>
                                         <ul class="animate get-bottom hover-pink-ftr">
@@ -236,8 +236,18 @@
                                         </ul>
                                     </div>
                                 </div>
+                                 <div class="col-lg-4 col-sm-6">
+                                    <div class="company-menu comon-footer mb-md-50 animate get-bottom">
+                                        <h3 class="pb-50 pb-sm-25 text-white text-capital animate">Top Influencers</h3>
+                                        <ul class="animate get-bottom hover-pink-ftr">
+                                            @foreach($pages as $page)
+                                            <li class="animate"><a href="{{ route('custom.page', $page[0])}}">{{$page[1]}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                                 
-                                <div class="col-lg-4 col-sm-6">
+                                <div class="col-lg-3 col-sm-6">
                                     <div class="company-menu animate get-bottom">
                                         <h3 class="pb-50 pb-sm-25 text-white text-capital animate">Enquiry</h3>
                                         <ul class="animate get-bottom">

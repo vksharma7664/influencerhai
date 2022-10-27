@@ -1,4 +1,3 @@
-<?php $title='A hand-picked list of the best influencers in India.';?>
 @extends('layouts.app')
  
 @section('title', $title)

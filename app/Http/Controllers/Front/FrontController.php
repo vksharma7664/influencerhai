@@ -11,6 +11,7 @@ use App\Models\Influencer_query;
 use App\Models\Influencer;
 use App\Models\Category;
 use App\Models\Platform;
+use App\Models\CustomInfluencerPage;
 use Storage, Session;
 
 
@@ -261,6 +262,7 @@ class FrontController extends Controller
     public function BlogDetails($title)
     {
         $blog=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname')->where('posts.slug',$title)->first();
+        if($blog == null )  return abort(404);
 
         $recent_blogs=DB::table('posts')->join('post_categories', 'posts.post_cat_id', '=', 'post_categories.id') ->select('posts.*', 'post_categories.name as cname',  'post_categories.slug as cslug')->where('posts.slug','!=',$title)->orderBy('id', 'desc')->limit(5)->get();
 
@@ -272,7 +274,7 @@ class FrontController extends Controller
         $meta['meta_tags']      = $blog->tags;
         $meta['meta_keywords']  = $blog->keywords;
 
-        if($blog == null )  return abort(404);
+        
         return view('front.blog_details', ['title' => $blog->title, 'blog' => $blog, 'meta_details' => $meta, 'categories'=>$categories, 'recent_blogs'=> $recent_blogs]);
 
     }
@@ -319,5 +321,27 @@ class FrontController extends Controller
         // return view('front.contact', ['title' => 'Contact -']);
         $request->session()->flash('success','Your query has been submitted.');
             return redirect()->route('home');
+    }
+
+
+    public function customPage($slug)
+    {
+        $page = CustomInfluencerPage::where('slug',$slug)->first();
+        if($page == null )  return abort(404);
+        $meta = [];
+        $meta['meta_title']     = $page->meta_title;
+        $meta['meta_desc']      = $page->meta_desc;
+        $meta['meta_tags']      = $page->tags;
+        $meta['meta_keywords']  = $page->keywords;
+
+        $data = DB::table('custom_influencer_pages')->where('slug','!=' ,$slug)->get();
+        $pages = [];
+        foreach ($data as $value) {
+            // code...
+            $pages[]= [$value->slug,$value->title];
+        }
+
+        return view('front.custom_page', ['title' => $page->title, 'page' => $page, 'meta_details' => $meta, 'pages' => $pages]);
+
     }
 }

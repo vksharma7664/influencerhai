@@ -320,6 +320,32 @@
                     </li>
                      @endcan
 
+                     @canany(['admin.custom.influencers.pages.show','admin.custom.influencers.pages.create'])
+                    <!-- begin CHARTS DROPDOWN -->
+                    <li class="panel">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#custom">
+                            <i class="fa fa-bar-chart-o"></i>Custom Pages <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="collapse nav @yield('page_right_in')" id="custom">
+                            
+                            @can('admin.custom.influencers.pages.create')
+                            <li>
+                                <a href="{{ route('admin.custom.influencers.pages.create') }}">
+                                    <i class="fa fa-angle-double-right"></i> Add New Page
+                                </a>
+                            </li>
+                            @endcan
+                            @can('admin.custom.influencers.pages.show')
+                            <li>
+                                <a href="{{ route('admin.custom.influencers.pages.show') }}">
+                                    <i class="fa fa-angle-double-right"></i> Show All Pages
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                     @endcan
+
                     @canany(['campaign.show'])
                     <!-- begin CHARTS DROPDOWN -->
                     <li class="panel">

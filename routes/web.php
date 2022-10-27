@@ -55,6 +55,9 @@ Route::post('/start-campaign-here', [FrontController::class, 'postCampaign'])->n
 Route::get('/influencers/category/', [FrontController::class, 'InfluencerCategory'])->name('influencers.category');
 Route::get('/influencers/category/{category_slug}', [FrontController::class, 'InfluencerList'])->name('influencers.list');
 
+Route::get('/find-influencers/{slug}', [FrontController::class, 'customPage'])->name('custom.page');
+
+
 Auth::routes();
 
 Route::get('/admin', function(){
@@ -150,13 +153,20 @@ Route::group(['middleware'=>['auth', 'permission', 'admin'],'prefix' => 'admin']
 
     Route::post('/campaign/{unique_id}/sample/upload',[CampaignAdminController::class, 'campaignSampleUpload'])->name('admin.campaign.sample.upload');
 
-
-
-
     Route::get('/brands/list',[BrandAdminController::class, 'listing'])->name('admin.brand.show');
 
+     // make influencers pages
+    Route::get('admin/custom-pages/list',[CmsController::class, 'customInfluencersPages'])->name('admin.custom.influencers.pages.show');
+    Route::get('admin/custom-pages/{id}/influencer',[CmsController::class, 'customInfluencersList'])->name('admin.custom.influencers.list.show');
+    Route::get('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesCreate'])->name('admin.custom.influencers.pages.create');
+    Route::post('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesStore'])->name('admin.custom.influencers.pages.store');
+    Route::get('admin/custom-pages/edit/{id}',[CmsController::class, 'customInfluencersPagesEdit'])->name('admin.custom.influencers.pages.edit');
+    Route::post('admin/custom-pages/update/{id}',[CmsController::class, 'customInfluencersPagesUpdate'])->name('admin.custom.influencers.pages.update');
+    Route::get('admin/custom-pages/delete/{id}',[CmsController::class, 'customInfluencersPagesDelete'])->name('admin.custom.influencers.pages.delete');
 
 });
+
+   
 
 
 // brand login page
