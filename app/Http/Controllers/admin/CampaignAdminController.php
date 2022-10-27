@@ -12,6 +12,7 @@ use App\Models\Campaign_reference_link;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SampleInfulencerDetails;
 use App\Models\CampaignSampleProvide;
+use App\Models\CampaignSampleProvidedRemark;
 
 
 class CampaignAdminController extends Controller
@@ -63,12 +64,22 @@ class CampaignAdminController extends Controller
                 $json_arr[$one] = $request[$one.'_'.$list['id']];
             }
             // dd(json_encode($json_arr));
+            $remark_admin = isset($request['admin_remark_'.$list['id']]) ? $request['admin_remark_'.$list['id']] : null;
             CampaignSampleProvide::where('id', $list['id'])->update([
-                // 'selected' => isset($request['select_'.$list['id']]) ? 1 : null,
-                'remark'    => isset($request['remark_'.$list['id']]) ? $request['remark_'.$list['id']] : null,
-                'admin_remark'    => isset($request['admin_remark_'.$list['id']]) ? $request['admin_remark_'.$list['id']] : null,
+                'admin_remark'    => $remark_admin,
                 'other_data'    => json_encode($json_arr)
             ]);
+
+            // add remarks
+            if($remark_admin != null){
+                CampaignSampleProvidedRemark::create([
+                    'campaign_id'                   => $request->campaign_id,
+                    'campaign_sample_provide_id'    => $list['id'],
+                    'type'                          => 'admin',
+                    'remark'                        => $remark_admin,
+                ]);
+            }
+            
         }
         $request->session()->flash('msg','List Saved Successfully');
         return redirect()->back();

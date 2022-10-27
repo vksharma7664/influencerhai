@@ -10,6 +10,7 @@ use App\Models\Campaign_location;
 use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
 use App\Models\CampaignSampleProvide;
+use App\Models\CampaignSampleProvidedRemark;
 use Session, DB, auth, Storage;
 
 class CampaignController extends Controller
@@ -256,10 +257,22 @@ class CampaignController extends Controller
         $influencer_list = CampaignSampleProvide::where('campaign_id',$request->campaign_id)->get()->toArray();
         // $request->dd();
         foreach($influencer_list as $list){
+            $reamrk_ = isset($request['remark_'.$list['id']]) ? $request['remark_'.$list['id']] : null;
             CampaignSampleProvide::where('id', $list['id'])->update([
                 'selected' => isset($request['select_'.$list['id']]) ? 1 : null,
-                'remark'    => isset($request['remark_'.$list['id']]) ? $request['remark_'.$list['id']] : null
+                'remark'    => $reamrk_
             ]);
+
+            // add remarks
+            if($reamrk_ != null){
+                CampaignSampleProvidedRemark::create([
+                    'campaign_id'                   => $request->campaign_id,
+                    'campaign_sample_provide_id'    => $list['id'],
+                    'type'                          => 'client',
+                    'remark'                        => $reamrk_,
+                ]);
+            }
+            
         }
         Session::flash('msg','List Saved Successfully');
         return redirect()->back();

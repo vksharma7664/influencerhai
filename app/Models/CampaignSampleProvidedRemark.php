@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CampaignSampleProvide extends Model
+class CampaignSampleProvidedRemark extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'campaign_id',
-        'influencer_details',
-        'other_data',
-        'selected',
+        'campaign_sample_provide_id',
+        'type',
         'remark',
     ];
-
-    public function remarks()
-    {
-        return $this->hasMany(CampaignSampleProvidedRemark::class);
-    }
 }

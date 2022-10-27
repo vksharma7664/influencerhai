@@ -274,11 +274,15 @@
               <div class="portlet-body">
                 <form method="POST" action="{{ route('admin.campaign.sample.upload', $campaign->unique_id) }}" enctype="multipart/form-data">
                     @csrf
-                    <label>Share Sample File</label>
-                    <input type="hidden" name="id" value="{{$campaign->id}}">
-                    <input type="file" name="excel" class="form-control">
-                    <div class="mt-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-md-6">
+                      <label>Share Sample File</label>
+                      <input type="hidden" name="id" value="{{$campaign->id}}">
+                      
+                      <input type="file" name="excel" class="form-control">
+                    </div>
+                    <div class="col-md-5" style="padding-top: 25px;">
+                      <label> </label>
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                   </form>
                 </div>
@@ -299,9 +303,9 @@
                         <table class="table table-bordered" style="overflow-y:auto !important;">
                           <thead>
                             <tr>
-                              <th scope="col">Select</th>
-                              <th scope="col" >Client Remark</th>
-                              <th scope="col" >Admin Remark</th>
+                              <th scope="col" style="background-color: grey;">Select</th>
+                              <th scope="col" style="background-color: grey;">Client Remark</th>
+                              <th scope="col" style="background-color: grey;">Admin Remark</th>
                               @foreach($headings as $one)
                               <th scope="col">{{makeSlugFree($one)}}</th>
                               @endforeach
@@ -317,13 +321,13 @@
                                 <td scope="row">
                                   <div class="form-check">
                                     <!-- <input type="radio" name="select_{{$list->id}}" class="form-check-input" @if($list->selected) checked @endif ></div> -->
-                                    @if($list->selected) Selected @else - @endif
+                                    @if($list->selected)<h5 style="color:green;"> Selected </h5> @else - @endif
                                 </td>
                                 <td scope="col"> <div class="form-group">
-                                  <input type="text" class="form-control form-control-sm" name="remark_{{$list->id}}" value="{{ $list->remark != null ? $list->remark : '' }}" readonly>
+                                  {{ $list->remark != null ? $list->remark : '' }}
                                 </div></td>
                                 <td scope="col" > <div class="form-group">
-                                  <input type="text" class="form-control form-control-sm" name="admin_remark_{{$list->id}}" value="{{ $list->admin_remark != null ? $list->admin_remark : '' }}">
+                                  <input type="text"  name="admin_remark_{{$list->id}}" value="{{ $list->admin_remark != null ? $list->admin_remark : '' }}">
                                 </div></td>
                                   @foreach($headings as $one)
                                   <td scope="col"><input  type="text" name="{{$one}}_{{$list->id}}" value=" {{ $data[$one] }}">
