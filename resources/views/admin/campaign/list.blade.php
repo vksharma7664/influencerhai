@@ -42,6 +42,7 @@
                                                 <th>Campaign Deadline</th>
                                                 <th>Campaign Live Date</th>
                                                 <th>Status</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -57,7 +58,8 @@
                                                 <td>{{$list->hastags}}</td>
                                                 <td>{{$list->deadline}}</td>
                                                 <td>{{$list->live_date}}</td>
-                                                <td>{{$list->status}}</td>
+                                                <td>{{campaignStatus($list->status)}}</td>
+                                                <td>{{readableDate($list->created_at)}}</td>
                                                 <td width="10%">
                                                     <!-- <a class="btn btn-warning btn-xs" href="{{route('meta.edit', $list->id) }}">Edit</a> -->
                                                     <a class="btn btn-warning btn-xs" href="{{route('admin.campaign.details', $list->unique_id) }}">View</a> 

@@ -12,4 +12,22 @@
 		return ucwords(str_replace('_',' ',$string));
 	}
 
+	function readableDate($date)
+	{
+		return date('j M Y h:i a', strtotime($date));
+	}
+
+	function campaignStatus($status)
+	{
+		$arr = [
+			'save' 			=> 'Draft',
+			'post' 			=> 'Under Review',
+			'live' 			=> 'Live Brief',
+			'ongoing' 		=> 'Ongoing',
+			'completed' 	=> 'Completed'
+		];
+
+		return $arr[$status];
+	}
+
 ?>

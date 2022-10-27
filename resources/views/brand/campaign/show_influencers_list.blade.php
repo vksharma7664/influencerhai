@@ -50,7 +50,7 @@
                 <div class="card">
                     <div class="card-header">
                       <a href="{{ route('brand.campaign.list')}}" class="btn btn-light"> Back </a>
-                      <h4><u>Influencers Details</u></h4>
+                      <!-- <h4><u>Influencers Details</u></h4> -->
                     </div>
                     <div class="card-body" style="padding-top: 0px;">
                       <div class="text-center text-green">{{session('msg')}}</div>

@@ -37,14 +37,18 @@
                   </div> -->
                   <!-- <div class="card-body"> -->
                     <ul class="nav nav-pills" id="myTab3" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link {{ $active_tab == 'ongoing' ? 'active' : '' }}" id="ongoing-tab3" data-toggle="tab" href="#ongoing3" role="tab" aria-controls="ongoing" aria-selected="true">Outgoing Campaigns @if($ongoing->count() > 0)<span class="badge badge-transparent">({{ $ongoing->count() }})</span> @endif</a>
+                      <li class="nav-item mr-3">
+                        <a class="nav-link {{ $active_tab == 'ongoing' ? 'active' : '' }}" id="ongoing-tab3" data-toggle="tab" href="#ongoing3" role="tab" aria-controls="ongoing" aria-selected="true">Outgoing @if($ongoing->count() > 0)<span class="badge badge-transparent">({{ $ongoing->count() }})</span> @endif</a>
+                      </li>
+
+                      <li class="nav-item  mr-3">
+                        <a class="nav-link {{ $active_tab == 'live' ? 'active' : '' }}" id="live-tab3" data-toggle="tab" href="#live3" role="tab" aria-controls="live" aria-selected="true">Live @if($live->count() > 0)<span class="badge badge-transparent">({{ $live->count() }})</span> @endif</a>
                       </li>
                       
-                      <li class="nav-item">
+                      <li class="nav-item  mr-3">
                         <a class="nav-link {{ $active_tab == 'review' ? 'active' : '' }}" id="review-tab3" data-toggle="tab" href="#review3" role="tab" aria-controls="review" aria-selected="false">Under Review @if($review->count() > 0)<span class="badge badge-transparent">({{ $review->count() }})</span> @endif</a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item  mr-3">
                         <a class="nav-link {{ $active_tab == 'draft' ? 'active' : '' }}" id="draft-tab3" data-toggle="tab" href="#draft3" role="tab" aria-controls="draft" aria-selected="false">Drafts @if($draft->count() > 0)<span class="badge badge-transparent">({{ $draft->count() }})</span> @endif</a>
                       </li>
                       <li class="nav-item">
@@ -62,7 +66,8 @@
                               <th>Title</th>
                               <th>Deadline</th>
                               <th>Live Date</th>
-                              <th>Platform</th>
+                              <th>Platform</th>                              
+                              <th>Created</th>
                               <th>Action</th>
                             </tr>
                             @foreach($ongoing->get() as $ongoing)
@@ -74,6 +79,7 @@
                               </td>
                               <td>{{ $ongoing->live_date }}</td>
                                <td>{{ ucwords($ongoing->platform) }}</td>
+                               <td>{{ readableDate($ongoing->created_at) }}</td>
                               <td>
                                 <a href="#" class="btn btn-secondary">Edit</a>
                                 <a href="#" class="btn btn-secondary">Detail</a>
@@ -84,7 +90,47 @@
                         </div>
                         @else
                         <div class="text-center m">
-                          <i class="fas fa-bars" style="font-size: 60px;"></i>
+                          <i class="fas fa-bars" style="font-size: 20px;"></i>
+                          <p class="text-center">No Data</p>
+                        </div>
+                        @endif
+                          
+                      </div>
+                      <div class="tab-pane fade {{ $active_tab == 'live' ? 'show active' : '' }}" id="live3" role="tabpanel" aria-labelledby="live-tab3">
+                        <!-- inner html -->
+                        <!-- live -->
+                        @if($live->orderBy('id','desc')->count() > 0)
+                        <div class="table-responsive">
+                          <table class="table table-striped">
+                            <tr>
+                              <th>Title</th>
+                              <th>Deadline</th>
+                              <th>Live Date</th>
+                              <th>Platform</th>                              
+                              <th>Created</th>
+                              <th>Action</th>
+                            </tr>
+                            @foreach($live->get() as $live)
+                            <tr>
+                              <td>{{ ucwords($live->title) }}</td>
+                              <td class="align-middle">
+                               
+                                {{ $live->deadline }}
+                              </td>
+                              <td>{{ $live->live_date }}</td>
+                               <td>{{ ucwords($live->platform) }}</td>
+                               <td>{{ readableDate($live->created_at) }}</td>
+                              <td>
+                                <a href="#" class="btn btn-secondary">Edit</a>
+                                <a href="#" class="btn btn-secondary">Detail</a>
+                              </td>
+                            </tr>
+                            @endforeach
+                          </table>
+                        </div>
+                        @else
+                        <div class="text-center m">
+                          <i class="fas fa-bars" style="font-size: 20px;"></i>
                           <p class="text-center">No Data</p>
                         </div>
                         @endif
@@ -99,7 +145,8 @@
                               <th>Title</th>
                               <th>Deadline</th>
                               <th>Live Date</th>
-                              <th>Platform</th>
+                              <th>Platform</th>                              
+                              <th>Created</th>
                               <th>Action</th>
                             </tr>
                             @foreach($review->get() as $review)
@@ -111,10 +158,14 @@
                               </td>
                               <td>{{ $review->live_date }}</td>
                                <td>{{ ucwords($review->platform) }}</td>
+                               <td>{{ readableDate($review->created_at) }}</td>
                               <td>
-                                <button class="btn btn-lg btn-secondary">Under Review</button>
+                                <!-- <button class="btn btn-sm btn-secondary">Under Review</button> -->
                                 @if($review->sampleProvide()->count() > 0)
-                                <a href="{{ route('brand.campaign.sample.influencer',$review->unique_id) }}" class="btn btn-lg btn-info">Show Influencers</a>
+                                <a href="{{ route('brand.campaign.sample.influencer',$review->unique_id) }}" class="btn btn-sm btn-info">Show Influencers</a>
+
+                                @else
+                                -
                                 @endif
                               </td>
                             </tr>
@@ -123,7 +174,7 @@
                         </div>
                         @else
                         <div class="text-center m">
-                          <i class="fas fa-bars" style="font-size: 60px;"></i>
+                          <i class="fas fa-bars" style="font-size: 20px;"></i>
                           <p class="text-center">No Data</p>
                         </div>
                         @endif
@@ -137,7 +188,8 @@
                               <th>Title</th>
                               <th>Deadline</th>
                               <th>Live Date</th>
-                              <th>Platform</th>
+                              <th>Platform</th>                              
+                              <th>Created</th>
                               <th>Action</th>
                             </tr>
                             @foreach($draft->get() as $draft)
@@ -149,6 +201,7 @@
                               </td>
                               <td>{{ $draft->live_date }}</td>
                                <td>{{ ucwords($draft->platform) }}</td>
+                               <td>{{ readableDate($draft->created_at) }}</td>
                               <td>
                                 <a href="{{ route('brand.campaign.edit', $draft->unique_id) }}" class="btn btn-secondary">Edit</a>
                                 <a href="{{ route('brand.campaign.post', $draft->unique_id) }}" class="btn btn-secondary">Post</a>
@@ -159,7 +212,7 @@
                         </div>
                         @else
                         <div class="text-center m">
-                          <i class="fas fa-bars" style="font-size: 60px;"></i>
+                          <i class="fas fa-bars" style="font-size: 20px;"></i>
                           <p class="text-center">No Data</p>
                         </div>
                         @endif
@@ -173,7 +226,8 @@
                               <th>Title</th>
                               <th>Deadline</th>
                               <th>Live Date</th>
-                              <th>Platform</th>
+                              <th>Platform</th>                              
+                              <th>Created</th>
                               <th>Action</th>
                             </tr>
                             @foreach($completed->get() as $completed)
@@ -185,6 +239,7 @@
                               </td>
                               <td>{{ $completed->live_date }}</td>
                                <td>{{ ucwords($completed->platform) }}</td>
+                               <td>{{ readableDate($completed->created_at) }}</td>
                               <td>
                                 <a href="#" class="btn btn-secondary">Edit</a>
                                 <a href="#" class="btn btn-secondary">Detail</a>
@@ -195,7 +250,7 @@
                         </div>
                         @else
                         <div class="text-center m">
-                          <i class="fas fa-bars" style="font-size: 60px;"></i>
+                          <i class="fas fa-bars" style="font-size: 20px;"></i>
                           <p class="text-center">No Data</p>
                         </div>
                         @endif

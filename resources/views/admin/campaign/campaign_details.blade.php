@@ -255,10 +255,11 @@
                               <label>Change Status</label>
                               <input type="hidden" name="unique_id" value="{{$campaign->unique_id}}">
                               <select name="status">
-                                  <option value="save" {{ $campaign->status == 'save' ? "selected"  : "" }} >save</option>
-                                  <option value="post" {{ $campaign->status == 'post' ? "selected"  : "" }} >post</option>
-                                  <option value="ongoing" {{ $campaign->status == 'ongoing' ? "selected"  : "" }} >ongoing</option>
-                                  <option value="completed" {{ $campaign->status == 'completed' ? "selected"  : "" }} >completed</option>
+                                  <option value="save" {{ $campaign->status == 'save' ? "selected"  : "" }} >{{ campaignStatus('save') }}</option>
+                                  <option value="post" {{ $campaign->status == 'post' ? "selected"  : "" }} >{{ campaignStatus('post') }}</option>
+                                  <option value="live" {{ $campaign->status == 'live' ? "selected"  : "" }} >{{ campaignStatus('live') }}</option>
+                                  <option value="ongoing" {{ $campaign->status == 'ongoing' ? "selected"  : "" }} >{{ campaignStatus('ongoing') }}</option>
+                                  <option value="completed" {{ $campaign->status == 'completed' ? "selected"  : "" }} >{{ campaignStatus('completed') }}</option>
                               </select>
                                   <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>

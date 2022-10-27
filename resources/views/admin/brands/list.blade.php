@@ -42,6 +42,7 @@
                                                 <th>company_url</th>
                                                 <th>industry</th>
                                                 <th>Status</th>
+                                                <th>Registration</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -58,6 +59,7 @@
                                                 <td>{{$list->company_url}}</td>
                                                 <td>{{$list->industry}}</td>
                                                 <td>{{$list->email_verified_at != null ? 'Verified' : ' Not Verified'}}</td>
+                                                <td>{{readableDate($list->created_at)}}</td>
                                                 <td width="10%">
                                                     <a class="btn btn-warning btn-xs" href="{{route('admin.brand.show', $list->id) }}">Edit</a> 
                                                 </td>

@@ -201,6 +201,7 @@ class CampaignController extends Controller
     {
         $draft = Campaign::where('user_id',auth::user()->id)->where('status','save');
         $review = Campaign::where('user_id',auth::user()->id)->where('status','post');
+        $live = Campaign::where('user_id',auth::user()->id)->where('status','live');
         $ongoing = Campaign::where('user_id',auth::user()->id)->where('status','ongoing');
         $completed = Campaign::where('user_id',auth::user()->id)->where('status','completed');
 
@@ -216,7 +217,7 @@ class CampaignController extends Controller
             $request->session()->flash('success',$msg);
         }
 
-        return view('brand.campaign.list',compact('draft','review','ongoing','completed','active_tab'));
+        return view('brand.campaign.list',compact('draft','review','ongoing','completed','active_tab','live'));
     }
 
     public function showCampaign($id)
