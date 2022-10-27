@@ -16,6 +16,7 @@ use App\Http\Controllers\admin\CareerController;
 use App\Http\Controllers\admin\MetaController;
 use App\Http\Controllers\Brand\LoginController;
 use App\Http\Controllers\Brand\CampaignController;
+use App\Http\Controllers\Brand\BrandDashboardController;
 use App\Http\Controllers\admin\CampaignAdminController;
 use App\Http\Controllers\admin\BrandAdminController;
 
@@ -184,7 +185,7 @@ Route::get('/brand/register/successful', [LoginController::class, 'registerSucce
 //brand login routes
 Route::group(['middleware'=>['auth','brand'],'prefix' => 'brand'],function(){
 
-    Route::get('/dashboard',[LoginController::class, 'dashboard'])->name('brand.dashboard');
+    Route::get('/dashboard',[BrandDashboardController::class, 'dashboard'])->name('brand.dashboard');
     Route::get('/campaign/create',[CampaignController::class, 'create'])->name('brand.campaign.create');
     Route::get('/campaign/{id}/campaign-details',[CampaignController::class, 'editCampaign'])->name('brand.campaign.edit');
     Route::post('/campaign/platform-details/{id?}',[CampaignController::class, 'create2'])->name('brand.campaign.create2');

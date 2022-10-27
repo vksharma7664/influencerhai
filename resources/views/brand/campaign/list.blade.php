@@ -42,7 +42,7 @@
                       </li>
 
                       <li class="nav-item  mr-3">
-                        <a class="nav-link {{ $active_tab == 'live' ? 'active' : '' }}" id="live-tab3" data-toggle="tab" href="#live3" role="tab" aria-controls="live" aria-selected="true">Live @if($live->count() > 0)<span class="badge badge-transparent">({{ $live->count() }})</span> @endif</a>
+                        <a class="nav-link {{ $active_tab == 'live' ? 'active' : '' }}" id="live-tab3" data-toggle="tab" href="#live3" role="tab" aria-controls="live" aria-selected="true">Live Brief @if($live->count() > 0)<span class="badge badge-transparent">({{ $live->count() }})</span> @endif</a>
                       </li>
                       
                       <li class="nav-item  mr-3">
@@ -121,8 +121,8 @@
                                <td>{{ ucwords($live->platform) }}</td>
                                <td>{{ readableDate($live->created_at) }}</td>
                               <td>
-                                <a href="#" class="btn btn-secondary">Edit</a>
-                                <a href="#" class="btn btn-secondary">Detail</a>
+                                <a href="#" class="btn btn-secondary">Show Details</a>
+                                <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
                               </td>
                             </tr>
                             @endforeach
