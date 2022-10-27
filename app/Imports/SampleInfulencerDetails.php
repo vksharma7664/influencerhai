@@ -41,7 +41,7 @@ class SampleInfulencerDetails implements ToModel, WithHeadingRow#ToCollection
             // dd($this->campaign_id);
         // }
 
-        CampaignSampleProvide::create([
+        $test = CampaignSampleProvide::create([
             'campaign_id'           => $this->campaign_id,
             'influencer_details'    => $row['instagram_user_name'],
             'other_data'            => json_encode($row),

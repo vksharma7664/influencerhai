@@ -24,7 +24,11 @@ class CampaignAdminController extends Controller
 
     public function campaignDetails($id)
     {
-         $data['campaign']=Campaign::where('unique_id',$id)->first();
+        $data['campaign']=Campaign::where('unique_id',$id)->first();
+        if( $data['campaign']->sampleProvide()->count() > 0){
+            $data['influencer_list'] = CampaignSampleProvide::where('campaign_id',$data['campaign']->id)->get();
+            $data['headings'] = array_keys(json_decode($data['influencer_list'][0]->other_data,true));
+        }
         return view('admin/campaign/campaign_details',$data);
     }
 
@@ -45,5 +49,28 @@ class CampaignAdminController extends Controller
         // dd('yes');
         $request->session()->flash('msg','Status Saved Successfully');
         return redirect()->route('admin.campaign.details',$id);
+    }
+
+    public function campaignSampleChanges(Request $request,$id)
+    {
+        $influencer_list = CampaignSampleProvide::where('campaign_id',$request->campaign_id)->get()->toArray();
+        // $request->dd();
+        // dd($influencer_list[0]['other_data']);
+        $headings = array_keys(json_decode($influencer_list[0]['other_data'],true));
+        foreach($influencer_list as $list){
+            $json_arr = [];
+            foreach ($headings as $one) {
+                $json_arr[$one] = $request[$one.'_'.$list['id']];
+            }
+            // dd(json_encode($json_arr));
+            CampaignSampleProvide::where('id', $list['id'])->update([
+                // 'selected' => isset($request['select_'.$list['id']]) ? 1 : null,
+                'remark'    => isset($request['remark_'.$list['id']]) ? $request['remark_'.$list['id']] : null,
+                'admin_remark'    => isset($request['admin_remark_'.$list['id']]) ? $request['admin_remark_'.$list['id']] : null,
+                'other_data'    => json_encode($json_arr)
+            ]);
+        }
+        $request->session()->flash('msg','List Saved Successfully');
+        return redirect()->back();
     }
 }

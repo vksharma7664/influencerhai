@@ -84,7 +84,7 @@
                                           <input type="text" class="form-control form-control-sm" name="remark_{{$list->id}}" value="{{ $list->remark != null ? $list->remark : '' }}">
                                         </div></td>
                                          @foreach($headings as $one)
-                                          <td scope="col">{{ $data[$one] }}</td>
+                                          <td scope="col">@if(str_contains($data[$one], 'http')) <a href="{{ $data[$one] }}" target="_blank" > {{ $data[$one] }} </a> @else {{ $data[$one] }} @endif </td>
                                           @endforeach
                                       </tr>
                                       @endforeach

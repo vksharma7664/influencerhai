@@ -152,6 +152,7 @@ Route::group(['middleware'=>['auth', 'permission', 'admin'],'prefix' => 'admin']
     Route::post('/campaign/status/change/{unique_id}',[CampaignAdminController::class, 'campaignStatusChange'])->name('admin.campaign.status.change');
 
     Route::post('/campaign/{unique_id}/sample/upload',[CampaignAdminController::class, 'campaignSampleUpload'])->name('admin.campaign.sample.upload');
+    Route::post('/campaign/{unique_id}/sample/changes',[CampaignAdminController::class, 'campaignSampleChanges'])->name('admin.campaign.sample.changes');
 
     Route::get('/brands/list',[BrandAdminController::class, 'listing'])->name('admin.brand.show');
 
