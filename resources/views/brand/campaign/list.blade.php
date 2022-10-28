@@ -121,7 +121,7 @@
                                <td>{{ ucwords($live->platform) }}</td>
                                <td>{{ readableDate($live->created_at) }}</td>
                               <td>
-                                <a href="#" class="btn btn-secondary">Show Details</a>
+                                <a href="{{ route('brand.campaign.live_brief', $live->unique_id) }}" class="btn btn-secondary"> Details</a>
                                 <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
                               </td>
                             </tr>

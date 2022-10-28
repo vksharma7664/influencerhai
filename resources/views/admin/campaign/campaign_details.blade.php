@@ -268,6 +268,7 @@
               <!-- /.table-responsive -->
           </div>
           <hr>
+        @if($campaign->status == 'post')  
           <!-- /.portlet-body -->
           <div class=" row">
             <div class="col-md-12">
@@ -289,69 +290,132 @@
             </div>
           </div>
           <hr>
-        @if($campaign->sampleProvide()->count() > 0)
-          <div class="row">
-            <div class="col-md-12">
-              <div class="portlet-body">
-                <form method="POST" action="{{ route('admin.campaign.sample.changes', $campaign->unique_id) }}" enctype="multipart/form-data">
-                  <input type="hidden" value="{{ $campaign->id }}" name="campaign_id">
-                    @csrf
-                    <div class="card-body">
-                      <div class="section-title mt-0"><b>Shared Influencers List for Campaign</b></div>
-                      <hr>
-                      <div class="table-responsive" style="overflow-y: auto !important;">
-                        <table class="table table-bordered" style="overflow-y:auto !important;">
-                          <thead>
-                            <tr>
-                              <th scope="col" style="background-color: grey;">Select</th>
-                              <th scope="col" style="background-color: grey;">Client Remark</th>
-                              <th scope="col" style="background-color: grey;">Admin Remark</th>
-                              @foreach($headings as $one)
-                              <th scope="col">{{makeSlugFree($one)}}</th>
-                              @endforeach
-                            </tr>
-                          </thead>
-                          <tbody>
-                            
-                              @foreach($influencer_list as $list)
-                              @php
-                              $data = json_decode($list->other_data,true);
-                              @endphp
+          @if($campaign->sampleProvide()->count() > 0)
+            <div class="row">
+              <div class="col-md-12">
+                <div class="portlet-body">
+                  <form method="POST" action="{{ route('admin.campaign.sample.changes', $campaign->unique_id) }}" enctype="multipart/form-data">
+                    <input type="hidden" value="{{ $campaign->id }}" name="campaign_id">
+                      @csrf
+                      <div class="card-body">
+                        <div class="section-title mt-0"><b>Shared Influencers List for Campaign</b></div>
+                        <hr>
+                        <div class="table-responsive" style="overflow-y: auto !important;">
+                          <table class="table table-bordered" style="overflow-y:auto !important;">
+                            <thead>
                               <tr>
-                                <td scope="row">
-                                  <div class="form-check">
-                                    <!-- <input type="radio" name="select_{{$list->id}}" class="form-check-input" @if($list->selected) checked @endif ></div> -->
-                                    @if($list->selected)<h5 style="color:green;"> Selected </h5> @else - @endif
-                                </td>
-                                <td scope="col"> <div class="form-group">
-                                  {{ $list->remark != null ? $list->remark : '' }}
-                                </div></td>
-                                <td scope="col" > <div class="form-group">
-                                  <input type="text"  name="admin_remark_{{$list->id}}" value="{{ $list->admin_remark != null ? $list->admin_remark : '' }}">
-                                </div></td>
-                                  @foreach($headings as $one)
-                                  <td scope="col"><input  type="text" name="{{$one}}_{{$list->id}}" value=" {{ $data[$one] }}">
-                                   
-                                  </td>
-                                  @endforeach
+                                <th scope="col" style="background-color: grey;">Select</th>
+                                <th scope="col" style="background-color: grey;">Client Remark</th>
+                                <th scope="col" style="background-color: grey;">Admin Remark</th>
+                                @foreach($headings as $one)
+                                <th scope="col">{{makeSlugFree($one)}}</th>
+                                @endforeach
                               </tr>
-                              @endforeach
+                            </thead>
+                            <tbody>
+                              
+                                @foreach($influencer_list as $list)
+                                @php
+                                $data = json_decode($list->other_data,true);
+                                @endphp
+                                <tr>
+                                  <td scope="row">
+                                    <div class="form-check">
+                                      <!-- <input type="radio" name="select_{{$list->id}}" class="form-check-input" @if($list->selected) checked @endif ></div> -->
+                                      @if($list->selected)<h5 style="color:green;"> Selected </h5> @else - @endif
+                                  </td>
+                                  <td scope="col"> <div class="form-group">
+                                    {{ $list->remark != null ? $list->remark : '' }}
+                                  </div></td>
+                                  <td scope="col" > <div class="form-group">
+                                    <input type="text"  name="admin_remark_{{$list->id}}" value="{{ $list->admin_remark != null ? $list->admin_remark : '' }}">
+                                  </div></td>
+                                    @foreach($headings as $one)
+                                    <td scope="col"><input  type="text" name="{{$one}}_{{$list->id}}" value=" {{ $data[$one] }}">
+                                    
+                                    </td>
+                                    @endforeach
+                                </tr>
+                                @endforeach
 
-                            
-                            
-                          </tbody>
-                        </table>
+                              
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                          
+                        <div class="row">
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                        </div>
                       </div>
-                        
-                      <div class="row">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                      </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+                    </form>
+                  </div>
+              </div>
             </div>
-          </div>
+          @endif
+        @endif
+
+        @if(!in_array($campaign->status, ['save','post'])) 
+        <div class="row">
+              <div class="col-md-12">
+                <div class="portlet-body">
+                      <div class="card-body">
+                        <div class="section-title mt-0"><b>Selected Influencers List for Campaign</b></div>
+                        <hr>
+                        <div class="table-responsive" style="overflow-y: auto !important;">
+                          <table class="table table-bordered" style="overflow-y:auto !important;">
+                            <thead>
+                              <tr>
+                                <th scope="col" style="background-color: grey;">Select</th>
+                                <th scope="col" style="background-color: grey;">Client Remark</th>
+                                <th scope="col" style="background-color: grey;">Admin Remark</th>
+                                @foreach($headings as $one)
+                                <th scope="col">{{makeSlugFree($one)}}</th>
+                                @endforeach
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                                @foreach($influencer_list as $list)
+                                @php
+                                if($list->selected != 1){
+                                  continue;
+                                }
+
+                                $data = json_decode($list->other_data,true);
+                                @endphp
+                                <tr>
+                                  <td scope="row">
+                                    <div class="form-check">
+                                     
+                                      @if($list->selected)<h5 style="color:green;"> Selected </h5> @else - @endif
+                                  </td>
+                                  <td scope="col"> <div class="form-group">
+                                    {{ $list->remark != null ? $list->remark : '' }}
+                                  </div></td>
+                                  <td scope="col" > <div class="form-group">
+                                    {{ $list->admin_remark != null ? $list->admin_remark : '' }}
+                                  </div></td>
+                                    @foreach($headings as $one)
+                                    <td scope="col">@if(str_contains($data[$one], 'http')) <a href="{{ $data[$one] }}" target="_blank" > {{ $data[$one] }} </a> @else {{ $data[$one] }} @endif
+                                    
+                                    </td>
+                                    @endforeach
+                                </tr>
+                                @endforeach
+
+                              
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                          
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
         @endif
       </div>
       <!-- /.portlet -->

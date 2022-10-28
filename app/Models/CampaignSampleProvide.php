@@ -12,6 +12,7 @@ class CampaignSampleProvide extends Model
     protected $fillable = [
         'campaign_id',
         'influencer_details',
+        'influencer_link',
         'other_data',
         'selected',
         'remark',

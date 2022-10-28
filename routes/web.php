@@ -198,6 +198,11 @@ Route::group(['middleware'=>['auth','brand'],'prefix' => 'brand'],function(){
     Route::get('/campaign/{id}/influencers-list',[CampaignController::class, 'sampleInfluencers'])->name('brand.campaign.sample.influencer');
     Route::post('/campaign/influencers-list/selected',[CampaignController::class, 'sampleInfluencersSelected'])->name('brand.campaign.sample.influencer.selected');
 
+    // live brief 
+    Route::get('/campaign/{id}/live-brief',[CampaignController::class, 'liveBrief'])->name('brand.campaign.live_brief');
+    Route::get('/campaign/live-brief/{id}',[CampaignController::class, 'liveBriefDetails'])->name('brand.campaign.live_brief.details');
+    Route::post('/campaign/live-brief/{id}/save',[CampaignController::class, 'liveBriefDetailsSave'])->name('brand.campaign.live_brief.details.save');
+
 });
 
 Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');

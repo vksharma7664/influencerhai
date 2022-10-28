@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SampleInfulencerDetails;
 use App\Models\CampaignSampleProvide;
 use App\Models\CampaignSampleProvidedRemark;
+use App\Models\CampaignLiveBriefDetail;
 
 
 class CampaignAdminController extends Controller
@@ -27,19 +28,41 @@ class CampaignAdminController extends Controller
     {
         $data['campaign']=Campaign::where('unique_id',$id)->first();
         if( $data['campaign']->sampleProvide()->count() > 0){
+
             $data['influencer_list'] = CampaignSampleProvide::where('campaign_id',$data['campaign']->id)->get();
             $data['headings'] = array_keys(json_decode($data['influencer_list'][0]->other_data,true));
         }
         return view('admin/campaign/campaign_details',$data);
     }
 
+
+
     public function campaignStatusChange(Request $request, $id)
     {
         Campaign::where('unique_id',$id)->update([
             'status' => $request->status
         ]);
+
+        if($request->status == 'live'){
+            $campaign = Campaign::whereUniqueId($id)->first();
+            $live_count = CampaignLiveBriefDetail::whereCampaignId($campaign->id)->count();
+            if($live_count == 0){
+                $influencer_list = CampaignSampleProvide::where('campaign_id',$campaign->id)->where('selected', 1)->get()->toArray();
+                if($influencer_list != null && count($influencer_list) > 0){
+                    foreach($influencer_list as $list){
+
+                        CampaignLiveBriefDetail::create([
+                            'campaign_id'   => $campaign->id,
+                            'influencer_name'   => $list['influencer_details'],
+                            'influencer_link'   => $list['influencer_link'],
+                        ]);
+                    }
+                }
+            }
+        }
+
         $request->session()->flash('msg','Status Saved Successfully');
-            return redirect()->route('admin.campaign.details',$id);
+        return redirect()->route('admin.campaign.details',$id);
     }
 
     public function campaignSampleUpload(Request $request,$id)

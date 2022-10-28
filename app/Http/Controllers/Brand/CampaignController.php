@@ -11,12 +11,13 @@ use App\Models\Campaign_category;
 use App\Models\Campaign_reference_link;
 use App\Models\CampaignSampleProvide;
 use App\Models\CampaignSampleProvidedRemark;
+use App\Models\CampaignLiveBriefDetail;
 use Session, DB, auth, Storage;
 
 class CampaignController extends Controller
 {
 
-    
+
 
     //
     // add campaign //
@@ -278,6 +279,50 @@ class CampaignController extends Controller
             
         }
         Session::flash('msg','List Saved Successfully');
+        return redirect()->back();
+    }
+
+
+    // LIVE BRIEF
+
+    public function liveBrief($unique_id)
+    {
+        // show_campaign
+        $campaign = Campaign::whereUniqueId($unique_id)->first();
+        $influencer_list = CampaignLiveBriefDetail::where('campaign_id',$campaign->id)->get();
+        return view('brand.campaign.live.live_brief',['campaign'=> $campaign, 'influencer_list'=>$influencer_list]);
+    }
+
+    public function liveBriefDetails($id)
+    {
+        $influe_live = CampaignLiveBriefDetail::find($id);
+        $campaign = Campaign::whereId($influe_live->campaign_id)->first()->toArray();
+
+        $whole_data = $influe_live->whole_data != null ? json_decode($influe_live->whole_data, true) : array();
+        // dd($whole_data);
+        
+        return view('brand.campaign.live.loadhtml.details', compact('influe_live', 'campaign','whole_data'));
+    }
+
+    public function liveBriefDetailsSave(Request $request, $id)
+    {
+        // $request->dd();
+        $deliverables_arr = getDeliverablesNames();
+        $deliverables ='';
+        $whole = $request->except(['_token']);
+        foreach ($whole as $key => $value) {
+            // echo $key.'=>><<='.$value."<br>";
+            if($value){
+                $deliverables .= $value." ".$deliverables_arr[$key].',';
+            }
+        }
+        $deliverables = rtrim($deliverables, ',');
+        // dd();
+        CampaignLiveBriefDetail::whereId($id)->update([
+            'deliverables' => $deliverables,
+            'whole_data' => json_encode($whole),
+        ]);
+        Session::flash('msg','Data Saved Successfully');
         return redirect()->back();
     }
 

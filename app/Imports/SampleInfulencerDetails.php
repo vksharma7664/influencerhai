@@ -43,7 +43,8 @@ class SampleInfulencerDetails implements ToModel, WithHeadingRow#ToCollection
 
         $test = CampaignSampleProvide::create([
             'campaign_id'           => $this->campaign_id,
-            'influencer_details'    => $row['instagram_user_name'],
+            'influencer_details'    => $row['instagram_user_name'] ?? '',
+            'influencer_link'       => $row['insta_link'] ?? '',
             'other_data'            => json_encode($row),
         ]);
     }
