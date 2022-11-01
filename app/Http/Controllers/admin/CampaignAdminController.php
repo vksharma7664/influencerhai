@@ -107,4 +107,26 @@ class CampaignAdminController extends Controller
         $request->session()->flash('msg','List Saved Successfully');
         return redirect()->back();
     }
+
+    public function campaignLiveBriefShows($id)
+    {
+        $campaign = Campaign::whereUniqueId($id)->first();
+        $influe_live = CampaignLiveBriefDetail::whereCampaignId($campaign->id)->get();
+
+        // $whole_data = $influe_live->whole_data != null ? json_decode($influe_live->whole_data, true) : array();
+        // dd($influe_live);
+        
+        return view('admin.campaign.live.show', compact('influe_live', 'campaign'));
+    }
+
+    public function campaignLiveBriefLinksAdd($id)
+    {
+        $influe_live = CampaignLiveBriefDetail::find($id);
+        $campaign = Campaign::whereId($influe_live->campaign_id)->first()->toArray();
+
+        $whole_data = $influe_live->whole_data != null ? json_decode($influe_live->whole_data, true) : array();
+        // dd($whole_data);
+        
+        return view('admin.campaign.live.add_links', compact('influe_live', 'campaign','whole_data'));
+    }
 }

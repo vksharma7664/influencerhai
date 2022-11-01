@@ -61,8 +61,10 @@
                                                 <td>{{campaignStatus($list->status)}}</td>
                                                 <td>{{readableDate($list->created_at)}}</td>
                                                 <td width="10%">
-                                                    <!-- <a class="btn btn-warning btn-xs" href="{{route('meta.edit', $list->id) }}">Edit</a> -->
-                                                    <a class="btn btn-warning btn-xs" href="{{route('admin.campaign.details', $list->unique_id) }}">View</a> 
+                                                    @if(!in_array($list->status, ['save','post']))
+                                                    <a class="btn btn-warning btn-xs" href="{{route('admin.campaign.live_brief', $list->unique_id) }}">Influencers Details</a>
+                                                    @endif
+                                                    <a class="btn btn-warning btn-xs" href="{{route('admin.campaign.details', $list->unique_id) }}">Campaign Details</a> 
                                                 </td>
                                             </tr>
                                        <?php $sr++; ?>

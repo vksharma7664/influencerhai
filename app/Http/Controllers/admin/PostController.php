@@ -30,7 +30,8 @@ class PostController extends Controller
             $data=array(
                'post_cat_id'=>$request['post_cat_id'],
                'title'=>$request['title'],
-               'slug'=>Str::slug(str_replace('- InfluencerHai.com','',$request['title'])),
+               // 'slug'=>Str::slug(str_replace('- InfluencerHai.com','',$request['title'])),
+               'slug'=>Str::slug($request['slug']),
                'long_desc'=>$request['long_desc'],
                 'meta_title'=>$request['meta_title'],
                 'meta_desc'=>$request['meta_desc'],
@@ -86,7 +87,8 @@ class PostController extends Controller
             $data=array(
                 'post_cat_id'=>$request['post_cat_id'],
                'title'=>$request['title'],
-               'slug'=>Str::slug(str_replace('- InfluencerHai.com','',$request['title'])),
+               // 'slug'=>Str::slug(str_replace('- InfluencerHai.com','',$request['title'])),
+               'slug'=>Str::slug($request['slug']),
                'long_desc'=>$request['long_desc'],
                 'meta_title'=>$request['meta_title'],
                 'meta_desc'=>$request['meta_desc'],

@@ -114,7 +114,7 @@
             <div class="col-md-4 get-bottom animate" style="opacity: 1; visibility: inherit; transform: translate(0px, 0px);">
                 <div class="h4-single-team">
                     <div class="h4-team-img relative">
-                        <img src="{{ env('AWS_BASEURL_IMAGE').'front_assets/img/executive/yogesh.png' }}" alt="">
+                        <img src="https://influencerhai.com/cms/wp-content/uploads/2022/10/Yogesh-_1_.webp" alt="">
                         <!-- <div class="h4-team-social">
                             <ul class="d-flex">
                                 <li><a href=""><i class="icofont-facebook"></i></a></li>

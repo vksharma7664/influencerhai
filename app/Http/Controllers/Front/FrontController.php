@@ -344,4 +344,9 @@ class FrontController extends Controller
         return view('front.custom_page', ['title' => $page->title, 'page' => $page, 'meta_details' => $meta, 'pages' => $pages]);
 
     }
+
+    public function InfluencersLogin()
+    {
+        return view('front.influencer_login');
+    }
 }

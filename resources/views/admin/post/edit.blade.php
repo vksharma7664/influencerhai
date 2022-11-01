@@ -51,10 +51,15 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-8">
                                 <label for="exampleInputEmail1">Blog Title </label>
                                 @error('title')<b class="text-center text-red">{{$message}}</b>@enderror
                                 <input type="text" name="title" value="{{$result['0']->title}}" class="form-control" placeholder="Enter title">
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="exampleInputEmail1">Blog Slug </label>
+                                @error('slug')<b class="text-center text-red">{{$message}}</b>@enderror
+                                <input type="text" name="slug" class="form-control" placeholder="Enter slug" value="{{$result['0']->slug}}"  required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1">Image</label>

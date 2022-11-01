@@ -20,6 +20,8 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6 ">
                         <div class="card" style="border-radius: 8px;">
                             <div class="card-body p-5">
+
+                                <!-- brand login -->
                                 <h2 class="text-uppercase text-primary text-center mb-4">Sign in for Brands</h2>
                                 <p class="text-center m4-5">Hello Again ! We were Missing You</p>
                                 @if (Session::has('error'))
@@ -66,6 +68,7 @@
                                             class="fw-bold text-primary">Sign Up</a></p>
 
                                 </form>
+                                 <!--End brand login -->
 
                             </div>
                         </div>

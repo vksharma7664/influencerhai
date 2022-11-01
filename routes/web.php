@@ -57,6 +57,7 @@ Route::get('/influencers/category/', [FrontController::class, 'InfluencerCategor
 Route::get('/influencers/category/{category_slug}', [FrontController::class, 'InfluencerList'])->name('influencers.list');
 
 Route::get('/find-influencers/{slug}', [FrontController::class, 'customPage'])->name('custom.page');
+Route::get('/influencer/login', [FrontController::class, 'InfluencersLogin'])->name('front.influencer.login');
 
 
 Auth::routes();
@@ -66,106 +67,115 @@ Route::get('/admin', function(){
 })->name('admin.login.redirect');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware'=>['auth', 'permission', 'admin'],'prefix' => 'admin'],function()
+Route::group(['middleware'=>['auth', 'admin'],'prefix' => 'admin'],function()
 {
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('admin.dashboard');
 
-
+    Route::group(['middleware' => ['permission']], function() {
     /**
      * User Routes
      */
-    Route::group(['prefix' => 'users'], function() {
-        Route::get('/', [UsersController::class, 'index'])->name('users.index');
-        Route::get('/create', [UsersController::class, 'create'])->name('users.create');
-        Route::post('/create', [UsersController::class, 'store'])->name('users.store');
-        Route::get('/{user}/show', [UsersController::class, 'show'])->name('users.show');
-        Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
-        Route::patch('/{user}/update', [UsersController::class, 'update'])->name('users.update');
-        Route::delete('/{user}/delete', [UsersController::class, 'destroy'])->name('users.destroy');
-    });
+        Route::group(['prefix' => 'users'], function() {
+            Route::get('/', [UsersController::class, 'index'])->name('users.index');
+            Route::get('/create', [UsersController::class, 'create'])->name('users.create');
+            Route::post('/create', [UsersController::class, 'store'])->name('users.store');
+            Route::get('/{user}/show', [UsersController::class, 'show'])->name('users.show');
+            Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+            Route::patch('/{user}/update', [UsersController::class, 'update'])->name('users.update');
+            Route::delete('/{user}/delete', [UsersController::class, 'destroy'])->name('users.destroy');
+        });
 
-    Route::resource('/roles', RolesController::class);
-    Route::resource('/permissions', PermissionsController::class);
-
-
-   Route::get('/post/list',[PostController::class, 'listing'])->name('post.index');
-    Route::get('/post/add',[PostController::class, 'add'])->name('post.create');
-    Route::post('/post/submit',[PostController::class, 'submit'])->name('post.store');
-    Route::get('/post/delete/{id}',[PostController::class, 'delete'])->name('post.delete');
-    Route::get('/post/edit/{id}',[PostController::class, 'edit'])->name('post.edit');
-    Route::post('/post/update/{id}',[PostController::class, 'update'])->name('post.update');
-
-    Route::get('/post/add-new-category',[PostCategoryController::class, 'listing'])->name('post.cat.create');
-    Route::post('/post/category-submit',[PostCategoryController::class, 'submit'])->name('post.cat.store');
-    Route::get('/post/category-edit/{id}',[PostCategoryController::class, 'edit'])->name('post.cat.edit');
-    Route::post('/post/category-update/{id}',[PostCategoryController::class, 'Update'])->name('post.cat.update');
-    Route::get('/post/category-delete/{id}',[PostCategoryController::class, 'delete'])->name('post.cat.delete');
-
-    // Influencers Platforms //
-    Route::get('/influencers/add-new-platform',[PlatformController::class, 'listing'])->name('influencer.platform.create');
-    Route::post('/influencers/platform-submit',[PlatformController::class, 'submit'])->name('influencer.platform.store');
-    Route::get('/influencers/platform-edit/{id}',[PlatformController::class, 'edit'])->name('influencer.platform.edit');
-    Route::post('/influencers/platform-update/{id}',[PlatformController::class, 'Update'])->name('influencer.platform.update');
-    Route::get('/influencers/platform-delete/{id}',[PlatformController::class, 'delete'])->name('influencer.platform.delete');
-
-    // Influencers Categories //
-    Route::get('/influencers/add-new-category',[CategoryController::class, 'listing'])->name('influencer.cat.index');
-    Route::post('/influencers/category-submit',[CategoryController::class, 'submit'])->name('influencer.cat.store');
-    Route::get('/influencers/category-edit/{id}',[CategoryController::class, 'edit'])->name('influencer.cat.edit');
-    Route::post('/influencers/category-update/{id}',[CategoryController::class, 'Update'])->name('influencer.cat.update');
-    Route::get('/influencers/category-delete/{id}',[CategoryController::class, 'delete'])->name('influencer.cat.delete');
+        Route::resource('/roles', RolesController::class);
+        Route::resource('/permissions', PermissionsController::class);
 
 
-    // Influencers //
-    Route::get('/influencers/list',[InfluencerController::class, 'listing'])->name('influencer.index');
-    Route::get('/influencers/add',[InfluencerController::class, 'add'])->name('influencer.create');
-    Route::post('/influencers/submit',[InfluencerController::class, 'submit'])->name('influencer.store');
-    Route::get('/influencers/delete/{id}',[InfluencerController::class, 'delete'])->name('influencer.delete');
-    Route::get('/influencers/edit/{id}',[InfluencerController::class, 'edit'])->name('influencer.edit');
-    Route::post('/influencers/update/{id}',[InfluencerController::class, 'update'])->name('influencer.update');
+        Route::get('/post/list',[PostController::class, 'listing'])->name('post.index');
+        Route::get('/post/add',[PostController::class, 'add'])->name('post.create');
+        Route::post('/post/submit',[PostController::class, 'submit'])->name('post.store');
+        Route::get('/post/delete/{id}',[PostController::class, 'delete'])->name('post.delete');
+        Route::get('/post/edit/{id}',[PostController::class, 'edit'])->name('post.edit');
+        Route::post('/post/update/{id}',[PostController::class, 'update'])->name('post.update');
 
-    // Careers JOBS //
-    Route::get('/jobs/list',[CareerController::class, 'listing'])->name('jobs.index');
-    Route::get('/jobs/add',[CareerController::class, 'add'])->name('jobs.create');
-    Route::post('/jobs/submit',[CareerController::class, 'submit'])->name('jobs.store');
-    Route::get('/jobs/delete/{id}',[CareerController::class, 'delete'])->name('jobs.delete');
-    Route::get('/jobs/edit/{id}',[CareerController::class, 'edit'])->name('jobs.edit');
-    Route::post('/jobs/update/{id}',[CareerController::class, 'update'])->name('jobs.update');
-    Route::get('/jobs/application/list',[CareerController::class, 'jobApplylisting'])->name('jobs.application.list');
+        Route::get('/post/add-new-category',[PostCategoryController::class, 'listing'])->name('post.cat.create');
+        Route::post('/post/category-submit',[PostCategoryController::class, 'submit'])->name('post.cat.store');
+        Route::get('/post/category-edit/{id}',[PostCategoryController::class, 'edit'])->name('post.cat.edit');
+        Route::post('/post/category-update/{id}',[PostCategoryController::class, 'Update'])->name('post.cat.update');
+        Route::get('/post/category-delete/{id}',[PostCategoryController::class, 'delete'])->name('post.cat.delete');
+
+        // Influencers Platforms //
+        Route::get('/influencers/add-new-platform',[PlatformController::class, 'listing'])->name('influencer.platform.create');
+        Route::post('/influencers/platform-submit',[PlatformController::class, 'submit'])->name('influencer.platform.store');
+        Route::get('/influencers/platform-edit/{id}',[PlatformController::class, 'edit'])->name('influencer.platform.edit');
+        Route::post('/influencers/platform-update/{id}',[PlatformController::class, 'Update'])->name('influencer.platform.update');
+        Route::get('/influencers/platform-delete/{id}',[PlatformController::class, 'delete'])->name('influencer.platform.delete');
+
+        // Influencers Categories //
+        Route::get('/influencers/add-new-category',[CategoryController::class, 'listing'])->name('influencer.cat.index');
+        Route::post('/influencers/category-submit',[CategoryController::class, 'submit'])->name('influencer.cat.store');
+        Route::get('/influencers/category-edit/{id}',[CategoryController::class, 'edit'])->name('influencer.cat.edit');
+        Route::post('/influencers/category-update/{id}',[CategoryController::class, 'Update'])->name('influencer.cat.update');
+        Route::get('/influencers/category-delete/{id}',[CategoryController::class, 'delete'])->name('influencer.cat.delete');
 
 
-    // Queries
-    Route::get('/contactqueries/list',[CmsController::class, 'contactQuerieslisting'])->name('query.contact.show');
-    Route::get('/brandsqueries/list',[CmsController::class, 'brandsQuerieslisting'])->name('query.brands.show');
-    Route::get('/influencersqueries/list',[CmsController::class, 'influencersQuerieslisting'])->name('query.influencers.show');
-    // Route::get('/contactqueries/list',[CmsController::class, 'contactQuerieslisting'])->name('query.jobs.show');
+        // Influencers //
+        Route::get('/influencers/list',[InfluencerController::class, 'listing'])->name('influencer.index');
+        Route::get('/influencers/add',[InfluencerController::class, 'add'])->name('influencer.create');
+        Route::post('/influencers/submit',[InfluencerController::class, 'submit'])->name('influencer.store');
+        Route::get('/influencers/delete/{id}',[InfluencerController::class, 'delete'])->name('influencer.delete');
+        Route::get('/influencers/edit/{id}',[InfluencerController::class, 'edit'])->name('influencer.edit');
+        Route::post('/influencers/update/{id}',[InfluencerController::class, 'update'])->name('influencer.update');
 
-    // meta details for static pages
-    Route::get('/meta/list',[MetaController::class, 'listing'])->name('meta.index');
-    Route::get('/meta/add',[MetaController::class, 'add'])->name('meta.create');
-    Route::post('/meta/submit',[MetaController::class, 'submit'])->name('meta.store');
-    Route::get('/meta/edit/{id}',[MetaController::class, 'edit'])->name('meta.edit');
-    Route::post('/meta/update/{id}',[MetaController::class, 'update'])->name('meta.update');
+        // Careers JOBS //
+        Route::get('/jobs/list',[CareerController::class, 'listing'])->name('jobs.index');
+        Route::get('/jobs/add',[CareerController::class, 'add'])->name('jobs.create');
+        Route::post('/jobs/submit',[CareerController::class, 'submit'])->name('jobs.store');
+        Route::get('/jobs/delete/{id}',[CareerController::class, 'delete'])->name('jobs.delete');
+        Route::get('/jobs/edit/{id}',[CareerController::class, 'edit'])->name('jobs.edit');
+        Route::post('/jobs/update/{id}',[CareerController::class, 'update'])->name('jobs.update');
+        Route::get('/jobs/application/list',[CareerController::class, 'jobApplylisting'])->name('jobs.application.list');
 
-     // campaign routes
-    Route::get('/campaign/list',[CampaignAdminController::class, 'listing'])->name('campaign.show');
-    Route::get('/campaign/details/{unique_id}',[CampaignAdminController::class, 'campaignDetails'])->name('admin.campaign.details');
+
+        // Queries
+        Route::get('/contactqueries/list',[CmsController::class, 'contactQuerieslisting'])->name('query.contact.show');
+        Route::get('/brandsqueries/list',[CmsController::class, 'brandsQuerieslisting'])->name('query.brands.show');
+        Route::get('/influencersqueries/list',[CmsController::class, 'influencersQuerieslisting'])->name('query.influencers.show');
+        // Route::get('/contactqueries/list',[CmsController::class, 'contactQuerieslisting'])->name('query.jobs.show');
+
+        // meta details for static pages
+        Route::get('/meta/list',[MetaController::class, 'listing'])->name('meta.index');
+        Route::get('/meta/add',[MetaController::class, 'add'])->name('meta.create');
+        Route::post('/meta/submit',[MetaController::class, 'submit'])->name('meta.store');
+        Route::get('/meta/edit/{id}',[MetaController::class, 'edit'])->name('meta.edit');
+        Route::post('/meta/update/{id}',[MetaController::class, 'update'])->name('meta.update');
+
+        // campaign routes
+        Route::get('/campaign/list',[CampaignAdminController::class, 'listing'])->name('campaign.show');
+        Route::get('/campaign/details/{unique_id}',[CampaignAdminController::class, 'campaignDetails'])->name('admin.campaign.details');
+        
+        // live brief
+        Route::get('/campaign/{id}/live-brief',[CampaignAdminController::class, 'campaignLiveBriefShows'])->name('admin.campaign.live_brief');
+        
+
+
+        Route::get('/brands/list',[BrandAdminController::class, 'listing'])->name('admin.brand.show');
+
+        // make influencers pages
+        Route::get('admin/custom-pages/list',[CmsController::class, 'customInfluencersPages'])->name('admin.custom.influencers.pages.show');
+        Route::get('admin/custom-pages/{id}/influencer',[CmsController::class, 'customInfluencersList'])->name('admin.custom.influencers.list.show');
+        Route::get('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesCreate'])->name('admin.custom.influencers.pages.create');
+        Route::post('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesStore'])->name('admin.custom.influencers.pages.store');
+        Route::get('admin/custom-pages/edit/{id}',[CmsController::class, 'customInfluencersPagesEdit'])->name('admin.custom.influencers.pages.edit');
+        Route::post('admin/custom-pages/update/{id}',[CmsController::class, 'customInfluencersPagesUpdate'])->name('admin.custom.influencers.pages.update');
+        Route::get('admin/custom-pages/delete/{id}',[CmsController::class, 'customInfluencersPagesDelete'])->name('admin.custom.influencers.pages.delete');
+    }); 
+
+
+    // no permission
     Route::post('/campaign/status/change/{unique_id}',[CampaignAdminController::class, 'campaignStatusChange'])->name('admin.campaign.status.change');
 
     Route::post('/campaign/{unique_id}/sample/upload',[CampaignAdminController::class, 'campaignSampleUpload'])->name('admin.campaign.sample.upload');
     Route::post('/campaign/{unique_id}/sample/changes',[CampaignAdminController::class, 'campaignSampleChanges'])->name('admin.campaign.sample.changes');
-
-    Route::get('/brands/list',[BrandAdminController::class, 'listing'])->name('admin.brand.show');
-
-     // make influencers pages
-    Route::get('admin/custom-pages/list',[CmsController::class, 'customInfluencersPages'])->name('admin.custom.influencers.pages.show');
-    Route::get('admin/custom-pages/{id}/influencer',[CmsController::class, 'customInfluencersList'])->name('admin.custom.influencers.list.show');
-    Route::get('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesCreate'])->name('admin.custom.influencers.pages.create');
-    Route::post('admin/custom-pages/create',[CmsController::class, 'customInfluencersPagesStore'])->name('admin.custom.influencers.pages.store');
-    Route::get('admin/custom-pages/edit/{id}',[CmsController::class, 'customInfluencersPagesEdit'])->name('admin.custom.influencers.pages.edit');
-    Route::post('admin/custom-pages/update/{id}',[CmsController::class, 'customInfluencersPagesUpdate'])->name('admin.custom.influencers.pages.update');
-    Route::get('admin/custom-pages/delete/{id}',[CmsController::class, 'customInfluencersPagesDelete'])->name('admin.custom.influencers.pages.delete');
-
+    Route::get('/campaign/live-brief/links/add/{id}',[CampaignAdminController::class, 'campaignLiveBriefLinksAdd'])->name('admin.campaign.live_brief.links.add');
 });
 
    

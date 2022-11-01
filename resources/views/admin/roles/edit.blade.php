@@ -36,7 +36,8 @@
                         </div>
                         
                         <label for="permissions" class="form-label">Assign Permissions</label>
-
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
                         <table class="table table-striped">
                             <thead>
                                 <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>

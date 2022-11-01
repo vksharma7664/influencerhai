@@ -9,6 +9,14 @@
             .section-bg-padding{
                 padding: 10px 0px;
             }
+            
+            
+          .blockquote-footer  {
+                
+                font-size: 20px;
+                
+            }
+          
         </style>    
 
 @endsection
@@ -28,12 +36,12 @@
 
     <!-- show influencers belongs to category -->
     <section class="photography-section pb-50">
-        <div class="container">
+        <table class="container">
            
-            <div class="row" id="data-wrapper">
+            <tr class="row" id="data-wrapper">
                 
                 @forelse($page->influencers as $influ)
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-30">
+                <td class="col-lg-3 col-md-6 col-sm-12 pt-30">
                     <div class="photographic-box-card">
                         <div class="row photography-card d-flex">
                             <div class="col-md-2 col-4 small-photography-image">
@@ -107,29 +115,30 @@
 
                         </div>
                     </div>
-                </div>
+                </td>
                 @empty
 
                 <p>No Influencers Data Available!</p>
 
                 @endforelse
                 
-            </div>
-            <div class="row mt-30">
-                    <div class="col-md-12">
-                        <h4>Explore Influencers from Other Categories</h4>
-                    </div>
-                    @foreach($pages as $one)
-                    <div class="col-md-4 ">
-                    <a class="btn btn-default" style="text-decoration: underline;" href="{{ route('custom.page', $one[0])}}">{{$one[1]}}</a>
-                     </div>
-                    @endforeach
-               
-                
-            </div>
+            </tr>
             
-        </div>
+            
+        </table>
     </section>
+    <section class="photography-section pb-50">
+   <div class="container">
+    <ul class="list-group">
+          <h4 class="blockquote-footer" style="">See More Influencers</h4>
+          &nbsp;
+        @foreach($pages as $one)
+        
+  <li class="list-group-item" ><a class="btn btn-default" style="color: #4039d4; text-decoration: underline;" href="{{ route('custom.page', $one[0])}}">{{$one[1]}}</a></li>@endforeach
+</ul>
+</div>
+</section>
+
 @endsection
 
 @section('scripts')

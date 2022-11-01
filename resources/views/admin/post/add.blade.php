@@ -30,7 +30,7 @@
                     <form role="form" method="post"  action="{{ url('admin/post/submit') }}"enctype="multipart/form-data">
                     @csrf
                         <div class="row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1">Post Category </label>
                                 @error('post_cat_id')<b class="text-center text-red">{{$message}}</b>@enderror
                                 <select class="form-control" name="post_cat_id" required>
@@ -40,12 +40,17 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-8">
                                 <label for="exampleInputEmail1">Blog Title </label>
                                 @error('title')<b class="text-center text-red">{{$message}}</b>@enderror
                                 <input type="text" name="title" class="form-control" placeholder="Enter title"  required>
                             </div>
-                            <div class="form-group col-md-3">
+                             <div class="form-group col-md-8">
+                                <label for="exampleInputEmail1">Blog Slug </label>
+                                @error('slug')<b class="text-center text-red">{{$message}}</b>@enderror
+                                <input type="text" name="slug" class="form-control" placeholder="Enter slug"  required>
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputEmail1">Image</label>
                                 @error('image')<b class="text-center text-red">{{$message}}</b>@enderror
                                 <input type="file" name="image" class="form-control" required>
