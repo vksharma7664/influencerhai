@@ -182,7 +182,7 @@ Route::group(['middleware'=>['auth', 'admin'],'prefix' => 'admin'],function()
         
         Route::get('/package/{id}/edit',[PackageAdminController::class, 'edit'])->name('admin.package.edit');
         Route::post('/package/{id}/edit',[PackageAdminController::class, 'update'])->name('admin.package.update');
-        Route::get('/package/{id}/delete',[PackageAdminController::class, 'delete'])->name('admin.package.delete');
+        Route::get('/package/{id}/delete',[PackageAdminController::class, 'destroy'])->name('admin.package.delete');
         // end packages manager
     }); 
     

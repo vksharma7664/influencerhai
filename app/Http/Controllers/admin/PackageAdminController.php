@@ -154,8 +154,11 @@ class PackageAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        Package::where('id',$id)->delete();
+        $request->session()->flash('msg','Data deleted Successfully');
+        return redirect()->route('admin.package.show');
+
     }
 }
