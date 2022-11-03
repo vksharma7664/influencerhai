@@ -12,6 +12,11 @@ use App\Models\Influencer;
 use App\Models\Category;
 use App\Models\Platform;
 use App\Models\CustomInfluencerPage;
+use App\Models\Package;
+use App\Models\ForPackage;
+use App\Models\PackageValue;
+use App\Models\PackageValueArea;
+use App\Models\PackageInclude;
 use Storage, Session;
 
 
@@ -343,6 +348,40 @@ class FrontController extends Controller
 
         return view('front.custom_page', ['title' => $page->title, 'page' => $page, 'meta_details' => $meta, 'pages' => $pages]);
 
+    }
+
+    public function packages()
+    {
+        
+        $for_packages = ForPackage::all();
+        // $for_packages = ForPackage::with('packages.values')->get();
+        // dd($packages->values);
+        // foreach ($packages->pincludes as $include) {
+        //     dd($include->pvalues());
+        // }
+        $pvalues = PackageValue::all();
+        // dd($for_packages[0]->packages);
+        $packages = [];
+
+        foreach ($for_packages as $fpkg) {
+            $packages[$fpkg->name] = [];
+            foreach ($fpkg->packages as $pkg) {
+                $packages[$fpkg->name]['pkg_heading'][] = $pkg->title;
+                foreach ($pkg->values as $val) {
+                    // dd($val->pivot->package_value_id);
+                    $packages[$fpkg->name]['packages'][$pkg->title]['values'][$val->pivot->package_value_id] = $val->pivot->exist == 1 ?  $val->pivot->display_text : 'no';
+                }
+                $packages[$fpkg->name]['packages'][$pkg->title]['data'] = $pkg->toArray();
+                 
+                // dd($pkg->values[0]);
+             }
+        }
+        // dd($packages);
+        // foreach ($pvalues as $value) {
+        //     dd($value->packages);
+        // }
+        
+        return view('front.packages', compact('packages', 'pvalues'));
     }
 
     public function InfluencersLogin()

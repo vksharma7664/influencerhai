@@ -59,6 +59,9 @@ Route::get('/influencers/category/{category_slug}', [FrontController::class, 'In
 Route::get('/find-influencers/{slug}', [FrontController::class, 'customPage'])->name('custom.page');
 Route::get('/influencer/login', [FrontController::class, 'InfluencersLogin'])->name('front.influencer.login');
 
+// packages 
+Route::get('/packages', [FrontController::class, 'packages'])->name('front.packages');
+
 
 Auth::routes();
 
@@ -167,6 +170,10 @@ Route::group(['middleware'=>['auth', 'admin'],'prefix' => 'admin'],function()
         Route::get('admin/custom-pages/edit/{id}',[CmsController::class, 'customInfluencersPagesEdit'])->name('admin.custom.influencers.pages.edit');
         Route::post('admin/custom-pages/update/{id}',[CmsController::class, 'customInfluencersPagesUpdate'])->name('admin.custom.influencers.pages.update');
         Route::get('admin/custom-pages/delete/{id}',[CmsController::class, 'customInfluencersPagesDelete'])->name('admin.custom.influencers.pages.delete');
+
+
+        // for packages
+        Route::get('admin/packages/show',[PackageAdminController::class, 'index'])->name('admin.package.show');
     }); 
 
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // dd(Route::currentRouteName());
+        // Model::preventLazyLoading(! app()->isProduction());
         $data = DB::table('seo_details')->get()->toArray();
         $main_details = array();
         foreach ($data as $one) {
