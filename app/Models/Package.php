@@ -26,8 +26,8 @@ class Package extends Model
         return $this->belongsToMany(PackageValue::class, 'package_includes')->withPivot('display_text','exist');
     }
 
-    public function pfor()
+    public function pkgfor()
     {
-        return $this->hasOne(ForPackage::class);
+        return $this->belongsTo(ForPackage::class, 'for_package_id');
     }
 }

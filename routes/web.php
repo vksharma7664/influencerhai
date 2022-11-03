@@ -19,6 +19,7 @@ use App\Http\Controllers\Brand\CampaignController;
 use App\Http\Controllers\Brand\BrandDashboardController;
 use App\Http\Controllers\admin\CampaignAdminController;
 use App\Http\Controllers\admin\BrandAdminController;
+use App\Http\Controllers\admin\PackageAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,9 +173,19 @@ Route::group(['middleware'=>['auth', 'admin'],'prefix' => 'admin'],function()
         Route::get('admin/custom-pages/delete/{id}',[CmsController::class, 'customInfluencersPagesDelete'])->name('admin.custom.influencers.pages.delete');
 
 
-        // for packages
-        Route::get('admin/packages/show',[PackageAdminController::class, 'index'])->name('admin.package.show');
+        // packages manager
+        Route::get('/package/show',[PackageAdminController::class, 'index'])->name('admin.package.show');
+        Route::get('/package/add',[PackageAdminController::class, 'create'])->name('admin.package.add');
+        Route::post('/package/add',[PackageAdminController::class, 'store'])->name('admin.package.store');
+        Route::get('/package/{id}/details',[PackageAdminController::class, 'pkgDetails'])->name('admin.package.details');
+        Route::post('/package/{id}/details',[PackageAdminController::class, 'pkgDetailsUpdate'])->name('admin.package.details.update');
+        
+        Route::get('/package/{id}/edit',[PackageAdminController::class, 'edit'])->name('admin.package.edit');
+        Route::post('/package/{id}/edit',[PackageAdminController::class, 'update'])->name('admin.package.update');
+        Route::get('/package/{id}/delete',[PackageAdminController::class, 'delete'])->name('admin.package.delete');
+        // end packages manager
     }); 
+    
 
 
     // no permission

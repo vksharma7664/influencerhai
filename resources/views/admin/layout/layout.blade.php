@@ -319,6 +319,31 @@
                         </ul>
                     </li>
                      @endcan
+                     @canany(['admin.package.add','admin.package.show'])
+                    <!-- begin CHARTS DROPDOWN -->
+                    <li class="panel">
+                        <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#package">
+                            <i class="fa fa-bar-chart-o"></i>Package Details <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="collapse nav @yield('packages_right_in')" id="package">
+                            
+                            @can('admin.package.add')
+                            <li>
+                                <a href="{{ route('admin.package.add') }}">
+                                    <i class="fa fa-angle-double-right"></i> Add New Package
+                                </a>
+                            </li>
+                            @endcan
+                            @can('admin.package.show')
+                            <li>
+                                <a href="{{ route('admin.package.show') }}">
+                                    <i class="fa fa-angle-double-right"></i> Show All Packages
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                     @endcan
 
                      @canany(['admin.custom.influencers.pages.show','admin.custom.influencers.pages.create'])
                     <!-- begin CHARTS DROPDOWN -->

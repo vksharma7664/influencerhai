@@ -309,8 +309,8 @@
                             <td class="feature"> {{ $pval->title }}</td>
                             @foreach ($packages['Brand']['pkg_heading'] as $heading)
                                 @if(array_key_exists($pval->id, $packages['Brand']['packages'][$heading]['values']))
-                                    @if (in_array($packages['Brand']['packages'][$heading]['values'][$pval->id], ['yes', 'no']))
-                                        @if ($packages['Brand']['packages'][$heading]['values'][$pval->id] == 'no')
+                                    @if (in_array($packages['Brand']['packages'][$heading]['values'][$pval->id], ['Y', 'N']))
+                                        @if ($packages['Brand']['packages'][$heading]['values'][$pval->id] == 'N')
                                         <td class="cross-color"><i class="icofont-close"></i></td>
                                         @else
                                         <td class="check-color"><i class="icofont-check"></i></td>
