@@ -304,30 +304,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pvalues as $pval)
-                        <tr>
-                            <td class="feature"> {{ $pval->title }}</td>
-                            @foreach ($packages['Brand']['pkg_heading'] as $heading)
-                                @if(array_key_exists($pval->id, $packages['Brand']['packages'][$heading]['values']))
-                                    @if (in_array($packages['Brand']['packages'][$heading]['values'][$pval->id], ['Y', 'N']))
-                                        @if ($packages['Brand']['packages'][$heading]['values'][$pval->id] == 'N')
-                                        <td class="cross-color"><i class="icofont-close"></i></td>
+                        @foreach ($pvArea as $pva)
+                            <tr>
+                            <td class="feature"> {{ $pva->name }}</td>
+                            <td class=""></td>
+                            <td class=""></td>
+                            </tr>
+                            @foreach ($pva->pvalues as $pval)
+                            <tr>
+                                <td class="feature"> {{ $pval->title }}</td>
+                                @foreach ($packages['Brand']['pkg_heading'] as $heading)
+                                    @if(array_key_exists($pval->id, $packages['Brand']['packages'][$heading]['values']))
+                                        @if (in_array($packages['Brand']['packages'][$heading]['values'][$pval->id], ['Y', 'N']))
+                                            @if ($packages['Brand']['packages'][$heading]['values'][$pval->id] == 'N')
+                                            <td class="cross-color"><i class="icofont-close"></i></td>
+                                            @else
+                                            <td class="check-color"><i class="icofont-check"></i></td>
+                                            @endif
                                         @else
-                                        <td class="check-color"><i class="icofont-check"></i></td>
+                                        <td class="">{{ $packages['Brand']['packages'][$heading]['values'][$pval->id] }}</td>
                                         @endif
                                     @else
-                                    <td class="">{{ $packages['Brand']['packages'][$heading]['values'][$pval->id] }}</td>
+                                    <td class="cross-color"><i class="icofont-close"></i></td>
                                     @endif
-                                @else
-                                <td class="cross-color"><i class="icofont-close"></i></td>
-                                @endif
-                            
-                            @endforeach
-                            
-                            <!-- <td class="">10</td> -->
-                            
-                        </tr>
+                                
+                                @endforeach
+                                
+                                <!-- <td class="">10</td> -->
+                                
+                            </tr>
+                            @endforeach 
                         @endforeach
+                       
                        
                         
                         <tr class="plans highlight">

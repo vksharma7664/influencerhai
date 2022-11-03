@@ -360,6 +360,7 @@ class FrontController extends Controller
         //     dd($include->pvalues());
         // }
         $pvalues = PackageValue::all();
+        $pvArea = PackageValueArea::all();
         // dd($for_packages[0]->packages);
         $packages = [];
 
@@ -381,7 +382,7 @@ class FrontController extends Controller
         //     dd($value->packages);
         // }
         
-        return view('front.packages', compact('packages', 'pvalues'));
+        return view('front.packages', compact('packages', 'pvalues', 'pvArea'));
     }
 
     public function InfluencersLogin()
