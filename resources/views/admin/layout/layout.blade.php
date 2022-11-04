@@ -319,7 +319,7 @@
                         </ul>
                     </li>
                      @endcan
-                     @canany(['admin.package.add','admin.package.show'])
+                     @canany(['admin.package.add','admin.package.show','admin.package.feature.show'])
                     <!-- begin CHARTS DROPDOWN -->
                     <li class="panel">
                         <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#package">
@@ -338,6 +338,13 @@
                             <li>
                                 <a href="{{ route('admin.package.show') }}">
                                     <i class="fa fa-angle-double-right"></i> Show All Packages
+                                </a>
+                            </li>
+                            @endcan
+                            @can('admin.package.feature.show')
+                            <li>
+                                <a href="{{ route('admin.package.feature.show') }}">
+                                    <i class="fa fa-angle-double-right"></i> Show All Features
                                 </a>
                             </li>
                             @endcan

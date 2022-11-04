@@ -29,10 +29,20 @@ class LoginController extends Controller
      */
     protected $redirectToAdmin = RouteServiceProvider::HOME;
     protected $redirectToBrand= RouteServiceProvider::BRAND;
+    protected $redirectToInfluencer= RouteServiceProvider::INFLUENCER;
 
     protected function redirectTo()
     {
-        return auth::user()->dashboard == 'admin' ? $this->redirectToAdmin : $this->redirectToBrand;
+        if(auth::user()->dashboard == 'admin'){
+            return $this->redirectToAdmin;
+        }elseif(auth::user()->dashboard == 'brand'){
+            return $this->redirectToBrand;
+
+        }elseif(auth::user()->dashboard == 'influencer'){
+            return $this->redirectToInfluencer;
+
+        }
+        // return auth::user()->dashboard == 'admin' ? $this->redirectToAdmin : $this->redirectToBrand;
         // if (auth()->user()->role == 'admin') {
         //     return '/admin';
         // }
