@@ -24,6 +24,6 @@ class PackageValue extends Model
 
     public function pvalueArea()
     {
-        return $this->belongsTo(PackageValueArea::class);
+        return $this->belongsTo(PackageValueArea::class,'package_value_area_id');
     }
 }

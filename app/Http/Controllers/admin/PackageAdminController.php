@@ -161,4 +161,73 @@ class PackageAdminController extends Controller
         return redirect()->route('admin.package.show');
 
     }
+
+    public function features()
+    {
+        $features = PackageValue::orderBy('id','desc')->get();
+        // dd($packages->pkgfor);
+        return view('admin.packages.features.list', compact('features'));
+    }
+
+    public function createFeature()
+    {
+        $pkg_val_area = PackageValueArea::orderBy('id','desc')->get();
+        // dd($packages->pkgfor);
+        return view('admin.packages.features.add', compact('pkg_val_area'));
+    }
+
+    public function storeFeature(Request $request)
+    {
+        $request->validate([
+            'package_value_area_id'=>'required',
+            'title'=>'required|unique:package_values,title',
+            
+        ]);
+        // $request->dd();
+        PackageValue::create($request->all());
+        // "for_package_id"    => $request['for_package_id'],
+        // "title"             => $request['title'],
+        // "short_desc"        => $request['short_desc'],
+        // "long_desc"         => $request['long_desc'],
+        // "price_flag"        => $request['price_flag'],
+        // "monthly"           => $request['monthly'],
+        // "quarterly"         => $request['quarterly'],
+        // "yearly"            => $request['yearly'],
+        // "status"            => $request['status'],
+        $request->session()->flash('msg','Data Saved Successfully');
+        return redirect()->route('admin.package.feature.show');
+    }
+
+    public function editFeature($id)
+    {
+        $pkg_val_area = PackageValueArea::orderBy('id','desc')->get();
+        $feature = PackageValue::where('id',$id)->first();
+        // dd($packages->pkgfor);
+        // dd($package->price_flag);
+        return view('admin.packages.features.edit', compact('feature', 'pkg_val_area'));
+    
+    }
+
+   
+    public function updateFeature(Request $request, $id)
+    {
+        $request->validate([
+            'package_value_area_id'=>'required',
+            'title'=>'required|unique:package_values,title,'.$id,
+        ]);
+        // $request->dd();
+        PackageValue::where('id',$id)->update($request->except(['_token']));
+
+        $request->session()->flash('msg','Data Saved Successfully');
+        return redirect()->route('admin.package.feature.show');
+    }
+
+   
+    public function destroyFeature(Request $request, $id)
+    {
+        PackageValue::where('id',$id)->delete();
+        $request->session()->flash('msg','Data deleted Successfully');
+        return redirect()->route('admin.package.feature.show');
+
+    }
 }

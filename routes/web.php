@@ -20,6 +20,7 @@ use App\Http\Controllers\Brand\BrandDashboardController;
 use App\Http\Controllers\admin\CampaignAdminController;
 use App\Http\Controllers\admin\BrandAdminController;
 use App\Http\Controllers\admin\PackageAdminController;
+use App\Http\Controllers\Influencer\CallBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,12 @@ Route::get('/packages', [FrontController::class, 'packages'])->name('front.packa
 
 
 Auth::routes();
+
+// influencers login 
+Route::get('/google/login', [CallBackController::class, 'googleLogin'])->name('influencer.google.login');
+Route::get('/google/callback', [CallBackController::class, 'googleCallback'])->name('influencer.google.callback');
+
+
 
 Route::get('/admin', function(){
     return redirect()->route('login');      
@@ -183,10 +190,17 @@ Route::group(['middleware'=>['auth', 'admin'],'prefix' => 'admin'],function()
         Route::get('/package/{id}/edit',[PackageAdminController::class, 'edit'])->name('admin.package.edit');
         Route::post('/package/{id}/edit',[PackageAdminController::class, 'update'])->name('admin.package.update');
         Route::get('/package/{id}/delete',[PackageAdminController::class, 'destroy'])->name('admin.package.delete');
+
+        
         // end packages manager
     }); 
     
-
+    Route::get('/package/feature/show',[PackageAdminController::class, 'features'])->name('admin.package.feature.show');
+    Route::get('/package/feature/add',[PackageAdminController::class, 'createFeature'])->name('admin.package.feature.add');
+    Route::post('/package/feature/add',[PackageAdminController::class, 'storeFeature'])->name('admin.package.feature.store');
+    Route::get('/package/feature/{id}/edit',[PackageAdminController::class, 'editFeature'])->name('admin.package.feature.edit');
+    Route::post('/package/feature/{id}/edit',[PackageAdminController::class, 'updateFeature'])->name('admin.package.feature.update');
+    Route::get('/package/feature/{id}/delete',[PackageAdminController::class, 'destroyFeature'])->name('admin.package.feature.delete');
 
     // no permission
     Route::post('/campaign/status/change/{unique_id}',[CampaignAdminController::class, 'campaignStatusChange'])->name('admin.campaign.status.change');
