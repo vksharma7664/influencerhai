@@ -385,8 +385,5 @@ class FrontController extends Controller
         return view('front.packages', compact('packages', 'pvalues', 'pvArea'));
     }
 
-    public function InfluencersLogin()
-    {
-        return view('front.influencer_login');
-    }
+   
 }

@@ -22,6 +22,7 @@ use App\Http\Controllers\admin\BrandAdminController;
 use App\Http\Controllers\admin\PackageAdminController;
 use App\Http\Controllers\Influencer\CallBackController;
 use App\Http\Controllers\Influencer\InfluencerDashController;
+use App\Http\Controllers\Influencer\InfluencerLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,8 +69,11 @@ Route::get('/packages', [FrontController::class, 'packages'])->name('front.packa
 Auth::routes();
 
 // influencers login 
+Route::get('/influencer/login', [InfluencerLoginController::class, 'login'])->name('influencer.login');
 Route::get('/google/login', [CallBackController::class, 'googleLogin'])->name('influencer.google.login');
+Route::get('/facebook/login', [CallBackController::class, 'facebookLogin'])->name('influencer.facebook.login');
 Route::get('/google/callback', [CallBackController::class, 'googleCallback'])->name('influencer.google.callback');
+Route::get('/facebook/callback', [CallBackController::class, 'facebookCallback'])->name('influencer.facebook.callback');
 Route::get('/influencer/dashboard', [InfluencerDashController::class, 'dashboard'])->name('influencer.google.callback');
 
 
